@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.17)
-project(project)
+project(Gallery)
 
 set(CMAKE_CXX_STANDARD 20)
+
+set(TARGET Gallery)
 
 include_directories(
         Storage
@@ -15,10 +17,6 @@ include_directories(
         Models/Album
         ConsoleMenu
         Screen
-        # Screen/Auth
-        # Screen/Main
-        # Screen/AccountList
-        # Screen/AlbumList
         App
         Global
 )
@@ -31,6 +29,6 @@ add_subdirectory(Screen)
 add_subdirectory(ConsoleMenu)
 add_subdirectory(App)
 
-add_executable(project main.cpp)
+add_executable(${TARGET} main.cpp)
 
-target_link_libraries(project App) # Screen Storage Global Utility CMenu Models)
+target_link_libraries(${TARGET} App) # Screen Storage Global Utility CMenu Models)
