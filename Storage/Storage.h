@@ -10,6 +10,9 @@
 #include <ActionTypes.h>
 #include <Account/Account.h>
 #include <Utility.h>
+#include <config.h>
+
+#include <cereal/archives/portable_binary.hpp>
 
 using std::string;
 using std::ofstream;

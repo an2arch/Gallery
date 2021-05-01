@@ -17,8 +17,8 @@ using std::function;
 
 class AccountList : public InterfaceScreen {
 public:
-    using SortOrderFunction = function<bool(const Account *, const Account *)>;
-    using FilterFunction = function<bool(const Account *)>;
+    using SortOrderFunction = function<bool(const shared_ptr<Account> &, const shared_ptr<Account> &)>;
+    using FilterFunction = function<bool(const shared_ptr<Account> &)>;
 
     AccountList(const AccountList &) = delete;
 

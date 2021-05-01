@@ -156,7 +156,7 @@ void AccountList::deleteAccount() {
             [state](int id) -> bool {
                 return std::any_of(state.accounts.begin(), state.accounts.end(),
                                    [id, state](const auto &acc) -> bool {
-                                       return id == acc->id && acc != state.current_user;
+                                       return id == acc->id && acc.get() != state.current_user;
                                    });
             });
 
@@ -182,7 +182,7 @@ void AccountList::sortAccountsByName() const {
     cout << "\nСортировка аккаунтов по имени\n"
          << "===============================\n" << endl;
 
-    printAccountList([](const Account *first, const Account *second) -> bool {
+    printAccountList([](const auto &first, const auto &second) -> bool {
         return first->name < second->name;
     }, nullptr);
 
@@ -194,7 +194,7 @@ void AccountList::filterAccountsByAdmins() const {
          << "=======================\n" << endl;
 
     printAccountList(nullptr,
-                     [](const Account *account) -> bool {
+                     [](const auto &account) -> bool {
                          return account->level_access == Account::LevelAccess::Admin;
                      });
 
@@ -206,7 +206,7 @@ void AccountList::filterAccountsByUsers() const {
          << "=====================\n" << endl;
 
     printAccountList(nullptr,
-                     [](const Account *account) -> bool {
+                     [](const auto &account) -> bool {
                          return account->level_access == Account::LevelAccess::User;
                      });
 

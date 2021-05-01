@@ -6,6 +6,7 @@
 #include <Photo.h>
 #include <Album.h>
 
+
 using std::string;
 
 struct State {
@@ -19,6 +20,11 @@ struct State {
     void *intent_data{}; // указатель, который может хранить данные для другого экрана
     bool is_push_stack{}; // нужно ли класть текущий экран в стэк
     void *screens_map{}; // указатель на словарь экранов программы
+
+    template<class Archive>
+    void serialize(Archive &archive) {
+        archive(accounts, photos, albums);
+    }
 };
 
 

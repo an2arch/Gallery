@@ -1,5 +1,7 @@
 ﻿#include "Storage.h"
 
+#include <memory>
+
 // инициализируем указатель на текущий объект
 // в данном случае он равен нулевому указателю
 Storage *Storage::s_storage{};
@@ -10,7 +12,7 @@ Storage *Storage::s_storage{};
 // и имеет методы для выгрузки
 // и загрузки данных
 bool Storage::_loadState() {
-    // TODO: Реализовать загрузку пользователей, кораблей и задач.
+    // TODO: Реализовать загрузку состояния приложения
     //  Если набор данных пользователя пуст, создать админа по умолчанию.
 
     // FIXME: Пока сразу создаём админа по умолчанию
@@ -20,13 +22,20 @@ bool Storage::_loadState() {
     //  здесь, нужно будет обращаться к объекту базы
     //  и выгружать от туда данные в state
 
-    m_state.accounts.push_back(new Account{
-            .name = "Admin",
-            .id = Account::current_user_id++,
-            .login = "admin",
-            .password = "admin",
-            .level_access = Account::LevelAccess::Admin
-    });
+    ifstream fin{PATH_TO_STATE};
+
+    if (fin) {
+        cereal::PortableBinaryInputArchive archive{fin};
+        archive(m_state);
+    } else {
+        m_state.accounts.push_back(std::make_shared<Account>(Account{
+                .name = "Admin",
+                .id = Account::current_user_id++,
+                .login = "admin",
+                .password = "admin",
+                .level_access = Account::LevelAccess::Admin
+        }));
+    }
 
 
     // если всё успешно - возвращаем тру
@@ -36,7 +45,15 @@ bool Storage::_loadState() {
 // в этом методе происходит сохранение State
 // в объекте базы
 bool Storage::_saveState() {
-    // TODO: Реализовать сохранение пользователей, кораблей и задач
+    // TODO: Реализовать сохранение состояния приложения
+    ofstream fout{PATH_TO_STATE};
+
+    if (!fout) {
+        return false;
+    }
+
+    cereal::PortableBinaryOutputArchive archive{fout};
+    archive(m_state);
 
     return true;
 }
@@ -139,46 +156,46 @@ State Storage::_reducer(Action action) {
             state.current_user = nullptr;
             break;
         case ActionTypes::ADD_NEW_USER:
-            state.accounts.push_back(new Account(*static_cast<Account *>(action.data)));
+            state.accounts.push_back(std::make_shared<Account>(Account(*static_cast<Account *>(action.data))));
             break;
         case ActionTypes::EDIT_USER:
-            for (auto *item : state.accounts) {
+            for (const auto &item : state.accounts) {
                 if (item->id == static_cast<Account *>(action.data)->id) {
                     *item = *static_cast<Account *>(action.data);
                 }
             }
             break;
         case ActionTypes::DELETE_USER:
-            delete state.accounts.at(*static_cast<int *>(action.data));
+            // delete state.accounts.at(*static_cast<int *>(action.data));
             state.accounts.erase(state.accounts.begin() + *static_cast<int *>(action.data));
             break;
         case ActionTypes::ADD_NEW_PHOTO:
-            state.photos.push_back(new Photo{*static_cast<Photo *>(action.data)});
+            state.photos.push_back(std::make_shared<Photo>(Photo{*static_cast<Photo *>(action.data)}));
             break;
         case ActionTypes::EDIT_PHOTO:
-            for (auto *item : state.photos) {
+            for (const auto &item : state.photos) {
                 if (item->id == static_cast<Photo *>(action.data)->id) {
                     *item = *static_cast<Photo *>(action.data);
                 }
             }
             break;
         case ActionTypes::DELETE_PHOTO:
-            delete state.photos.at(*static_cast<int *>(action.data));
+            // delete state.photos.at(*static_cast<int *>(action.data));
             state.photos.erase(state.photos.begin() + *static_cast<int *>(action.data));
             break;
 
         case ActionTypes::ADD_NEW_ALBUM:
-            state.albums.push_back(new Album{*static_cast<Album *>(action.data)});
+            state.albums.push_back(std::make_shared<Album>(Album{*static_cast<Album *>(action.data)}));
             break;
         case ActionTypes::EDIT_ALBUM:
-            for (auto *item : state.albums) {
+            for (const auto &item : state.albums) {
                 if (item->id == static_cast<Album *>(action.data)->id) {
                     *item = *static_cast<Album *>(action.data);
                 }
             }
             break;
         case ActionTypes::DELETE_ALBUM:
-            delete state.albums.at(*static_cast<int *>(action.data));
+            // delete state.albums.at(*static_cast<int *>(action.data));
             state.albums.erase(state.albums.begin() + *static_cast<int *>(action.data));
             break;
         case ActionTypes::SET_INTENT_NEXT_SCREEN:

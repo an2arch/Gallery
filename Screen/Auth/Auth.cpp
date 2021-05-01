@@ -94,7 +94,7 @@ Account *Auth::auth() {
             // если нашли совпадение, проверяем пароль
             if (user->password == password) {
                 // всё хорошо? - отправляем указатель на пользователя
-                return user;
+                return user.get();
             }
         }
     }

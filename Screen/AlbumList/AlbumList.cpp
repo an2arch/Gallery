@@ -40,7 +40,7 @@ void AlbumList::renderMain() const {
 CMenu *AlbumList::createMenu() {
     AlbumList *accountList = AlbumList::createScreen();
     auto *menu = new CMenu{"Что бы вы хотели сделать?", ItemList{
-            ItemMenu{"Отобразить все акаунты", [accountList]() -> int {
+            ItemMenu{"Отобразить все альбомы", [accountList]() -> int {
                 accountList->printAllAlbums();
                 return 1;
             }},
@@ -78,7 +78,7 @@ void AlbumList::addNewAlbum() {
 
     newAlbum.id = Album::current_album_id++;
     newAlbum.name = tool::getEnteredString("Введите название альбома -> ");
-    newAlbum.owner = state.current_user;
+    newAlbum.owner = std::make_shared<Account>(*state.current_user);
     newAlbum.photos = _getPhotos();
 
     m_storage->dispatch(Action{
@@ -102,7 +102,7 @@ void AlbumList::editAlbum() {
             "Введите id нужного альбома -> ",
             [state](int entered) -> bool {
                 return std::any_of(state.albums.begin(), state.albums.end(),
-                                   [entered](const Album *album) -> bool {
+                                   [entered](const auto &album) -> bool {
                                        return entered == album->id;
                                    });
             });
@@ -111,7 +111,7 @@ void AlbumList::editAlbum() {
 
     editAlbum.photos = _getPhotos();
 
-    editAlbum.owner = state.current_user;
+    editAlbum.owner = std::make_shared<Account>(*state.current_user);
 
     m_storage->dispatch(Action{
             ActionTypes::EDIT_ALBUM,
@@ -134,14 +134,14 @@ void AlbumList::deleteAlbum() {
             "Введите id альбома -> ",
             [state](int id) -> bool {
                 return std::any_of(state.albums.begin(), state.albums.end(),
-                                   [id, state](const Album *album) -> bool {
+                                   [id, state](const auto &album) -> bool {
                                        return id == album->id;
                                    });
             });
 
     size_t indexAlbum{};
 
-    for (auto *album: state.albums) {
+    for (const auto &album: state.albums) {
         if (album->id == albumIdToDelete) {
             break;
         }
@@ -161,7 +161,7 @@ void AlbumList::sortAlbumsByName() const {
     cout << "\nСортировка альбомов по названию\n"
          << "===============================\n" << endl;
 
-    printAlbums([](const Album *first, const Album *second) -> bool {
+    printAlbums([](const auto &first, const auto &second) -> bool {
         return first->name < second->name;
     });
 
@@ -180,7 +180,7 @@ void AlbumList::printAlbums(const AlbumList::SortOrderFunction &sortOrderFunc) c
     cout << "Id\tНазвание\tВладелец\n";
     cout << "==================================\n" << endl;
 
-    for (const auto *album : newAlbumsList) {
+    for (const auto &album : newAlbumsList) {
         cout << *album << endl;
     }
     cout << "==================================\n" << endl;

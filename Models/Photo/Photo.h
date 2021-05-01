@@ -2,12 +2,18 @@
 #define PROJECT_PHOTO_H
 
 #include <vector>
+#include <memory>
 #include <Account.h>
 
+#include <cereal/types/string.hpp>
+#include <cereal/types/memory.hpp>
+#include <cereal/types/vector.hpp>
+
 using std::vector;
+using std::shared_ptr;
 
 struct Photo {
-    using PhotosList = vector<Photo *>;
+    using PhotosList = vector<shared_ptr<Photo>>;
     using Id = unsigned int;
 
     static Id current_photo_id;
@@ -15,6 +21,13 @@ struct Photo {
     Id id{};
     Account::AccountsList marked_accounts{};
     string photo_path{};
+
+    template<class Archive>
+    void serialize(Archive &archive) {
+        archive(CEREAL_NVP_("marked_accounts", marked_accounts),
+                CEREAL_NVP_("id", id),
+                CEREAL_NVP_("photo_path", photo_path));
+    }
 };
 
 std::ostream &operator<<(std::ostream &out, const Photo &photo);

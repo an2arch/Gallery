@@ -75,7 +75,7 @@ void PhotoList::printAllPhotos() const {
     cout << "Id\tPath\n"
          << "================\n" << endl;
     auto state = m_storage->getState();
-    for (const auto *photo : state.photos) {
+    for (const auto &photo : state.photos) {
         cout << *photo << endl;
     }
     cout << "\n================\n" << endl;
@@ -94,7 +94,7 @@ void PhotoList::addNewPhoto() {
     newPhoto.photo_path = tool::getEnteredString("Введите путь до фотографии -> ");
 
     AccountList *accountList = AccountList::createScreen();
-    accountList->printAccountList(nullptr, [](const Account *account) -> bool {
+    accountList->printAccountList(nullptr, [](const auto &account) -> bool {
         return account->level_access == Account::LevelAccess::User;
     });
 
@@ -121,7 +121,7 @@ void PhotoList::editPhoto() {
             "Введите id нужной фотографии -> ",
             [&state](int entered) -> bool {
                 return std::any_of(state.photos.begin(), state.photos.end(),
-                                   [entered](const Photo *photo) -> bool {
+                                   [entered](const auto &photo) -> bool {
                                        return entered == photo->id;
                                    });
             });
@@ -151,14 +151,14 @@ void PhotoList::deletePhoto() {
             "Введите id фотографии -> ",
             [&state](int id) -> bool {
                 return std::any_of(state.photos.begin(), state.photos.end(),
-                                   [id](const Photo *photo) -> bool {
+                                   [id](const auto &photo) -> bool {
                                        return id == photo->id;
                                    });
             });
 
     size_t indexPhoto{};
 
-    for (auto *photo : state.photos) {
+    for (const auto &photo : state.photos) {
         if (photo->id == photoIdToDelete) {
             break;
         }

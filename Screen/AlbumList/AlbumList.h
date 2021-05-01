@@ -14,7 +14,7 @@ using std::endl;
 
 class AlbumList : public InterfaceScreen {
 public:
-    using SortOrderFunction = function<bool(const Album *, const Album *)>;
+    using SortOrderFunction = function<bool(const shared_ptr<Album> &, const shared_ptr<Album> &)>;
 
     AlbumList(const AlbumList &) = delete;
 
