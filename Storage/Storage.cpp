@@ -1,6 +1,5 @@
 ﻿#include "Storage.h"
 
-#include <memory>
 
 // инициализируем указатель на текущий объект
 // в данном случае он равен нулевому указателю
@@ -12,17 +11,7 @@ Storage *Storage::s_storage{};
 // и имеет методы для выгрузки
 // и загрузки данных
 bool Storage::_loadState() {
-    // TODO: Реализовать загрузку состояния приложения
-    //  Если набор данных пользователя пуст, создать админа по умолчанию.
-
-    // FIXME: Пока сразу создаём админа по умолчанию
-    //  т к не реализована логика сохранения данных в базе
-    //  можно её реализовать разными способами: через сохранение
-    //  в файлики, через сохранение в БД и т д
-    //  здесь, нужно будет обращаться к объекту базы
-    //  и выгружать от туда данные в state
-
-    ifstream fin{PATH_TO_STATE};
+    ifstream fin{m_path_to_save};
 
     if (fin) {
         cereal::PortableBinaryInputArchive archive{fin};
@@ -36,9 +25,7 @@ bool Storage::_loadState() {
                 .level_access = Account::LevelAccess::Admin
         }));
     }
-
-
-    // если всё успешно - возвращаем тру
+    // если всё успешно - возвращаем true
     return true;
 }
 
@@ -46,7 +33,7 @@ bool Storage::_loadState() {
 // в объекте базы
 bool Storage::_saveState() {
     // TODO: Реализовать сохранение состояния приложения
-    ofstream fout{PATH_TO_STATE};
+    ofstream fout{m_path_to_save};
 
     if (!fout) {
         return false;
@@ -83,15 +70,13 @@ Storage::~Storage() {
                 << "Не удалось сохранить данные хранилища! Storage.cpp - ~Storage()"
                 << std::endl;
     }
-
-    // TODO: удаляем всё из state
 }
 
 // конструктор, принимающий объект state
 // с начальной инициализацией
 // через список инициализации настраиваем объекты
-Storage::Storage(State state)
-        : m_state(std::move(state)) {
+Storage::Storage(State state, string path)
+        : m_state{std::move(state)}, m_path_to_save{std::move(path)} {
 
     // запускаем метод начлаьной инициализации Storage
     _init();
@@ -99,12 +84,17 @@ Storage::Storage(State state)
 
 // вызываем дилегирующий конструктор
 // с новым (пустым) объектом State
-Storage::Storage() : Storage(State{}) {}
+Storage::Storage(const string &path) : Storage(State{}, path) {}
 
+Storage &Storage::createStorage(const string &path) {
+    static Storage storage{path};
+    s_storage = &storage;
+    return storage;
+}
 
-Storage &Storage::createStorage(State state) {
+Storage &Storage::createStorage(State state, const string &path) {
     // создаём статический объект с начальным состоянием
-    static Storage storage(std::move(state));
+    static Storage storage(std::move(state), path);
 
     // сохраняем указатель на этот объект
     s_storage = &storage;

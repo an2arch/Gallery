@@ -70,7 +70,7 @@ App::App()
                         {IdScreens::ALBUMLIST,   AlbumList::createScreen()},
                         {IdScreens::ACCOUNTLIST, AccountList::createScreen()}
                 }
-        })) {
+        }, PATH_TO_STATE)) {
 
     // настраиваем объект приложения
     // вызываем метод инициализации

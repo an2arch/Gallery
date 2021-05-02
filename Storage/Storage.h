@@ -10,7 +10,7 @@
 #include <ActionTypes.h>
 #include <Account/Account.h>
 #include <Utility.h>
-#include <config.h>
+#include <memory>
 
 #include <cereal/archives/portable_binary.hpp>
 
@@ -37,9 +37,10 @@ public:
     // удаляем оператор присваивания
     Storage &operator=(const Storage &) = delete;
 
+    static Storage &createStorage(const string &path);
     // перегруженная версия метода возврата объекта
     // принимает начальное состояние и путь к корневой папки с данными
-    static Storage &createStorage(State state);
+    static Storage &createStorage(State state, const string &path);
 
     // метод возвращает указатель на текущий объект
     static Storage *getStorage();
@@ -58,18 +59,18 @@ public:
 
 private:
     // закрываем конструктор
-    Storage();
+    explicit Storage(const string &path);
 
     // закрываем главный конструктор
-    explicit Storage(State state);
+    Storage(State state, string path);
 
     // объект хранилища
     State m_state{};
 
-    // ссылка на объект базы данных
-
     // храним указатель на текущий объект
     static Storage *s_storage;
+
+    string m_path_to_save{};
 
     // метод начальной инициализации Store
     void _init();
