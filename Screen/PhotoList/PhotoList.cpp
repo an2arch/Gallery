@@ -93,12 +93,27 @@ void PhotoList::addNewPhoto() {
 
     newPhoto.photo_path = tool::getEnteredString("Введите путь до фотографии -> ");
 
-    AccountList *accountList = AccountList::createScreen();
-    accountList->printAccountList(nullptr, [](const auto &account) -> bool {
-        return account->level_access == Account::LevelAccess::User;
-    });
+    cout << "Список пользователей\n"
+         << "====================\n" << endl;
+    cout << "Id\tИмя\tЛогин\tПароль\tУровень доступа\n";
+    cout << "----------------------------------------------------------------\n\n";
 
-    newPhoto.marked_accounts = _getMarkedAccounts();
+    for (const auto &account : state.accounts) {
+        if (account->level_access == Account::LevelAccess::User) {
+            cout << *account << endl;
+        }
+    }
+
+    cout << "===================\n" << endl;
+
+    newPhoto.marked_accounts = _getMarkedAccounts(
+            "Введите Id отмеченных пользователей -> ",
+            [&state](int entered) -> bool {
+                return (*std::find_if(state.accounts.begin(), state.accounts.end(),
+                                     [entered](const auto &account) -> bool {
+                                         return account->id == entered;
+                                     }))->level_access == Account::LevelAccess::User;
+            });
 
     m_storage->dispatch(Action{
             ActionTypes::ADD_NEW_PHOTO,
@@ -128,7 +143,29 @@ void PhotoList::editPhoto() {
 
     editPhoto.photo_path = tool::getEnteredString("Введите новый путь к фотографии -> ");
 
-    editPhoto.marked_accounts = _getMarkedAccounts();
+    // editPhoto.marked_accounts = _getMarkedAccounts("Введите Id отмеченных пользователей -> ");
+
+    cout << "Список пользователей\n"
+         << "====================\n" << endl;
+    cout << "Id\tИмя\tЛогин\tПароль\tУровень доступа\n";
+    cout << "----------------------------------------------------------------\n\n";
+
+    for (const auto &account : state.accounts) {
+        if (account->level_access == Account::LevelAccess::User) {
+            cout << *account << endl;
+        }
+    }
+
+    cout << "===================\n" << endl;
+
+    editPhoto.marked_accounts = _getMarkedAccounts(
+            "Введите Id отмеченных пользователей -> ",
+            [&state](int entered) -> bool {
+                return (*std::find_if(state.accounts.begin(), state.accounts.end(),
+                                      [entered](const auto &account) -> bool {
+                                          return account->id == entered;
+                                      }))->level_access == Account::LevelAccess::User;
+            });
 
     m_storage->dispatch(Action{
             ActionTypes::EDIT_PHOTO,
@@ -174,18 +211,19 @@ void PhotoList::deletePhoto() {
          << "======================\n" << endl;
 }
 
-Account::AccountsList PhotoList::_getMarkedAccounts() {
+Account::AccountsList
+PhotoList::_getMarkedAccounts(const string &text, const tool::ValidateNum &validate, std::istream &in) {
     auto state = m_storage->getState();
     Account::AccountsList marked_accounts{};
     vector<int> markedAccountsId = tool::getEnteredInts(
-            "Введите Id отмеченных пользователей -> ",
-            [&state](int entered) -> bool {
+            text,
+            [&state, &validate](int entered) -> bool {
                 return std::any_of(state.accounts.begin(),
                                    state.accounts.end(),
                                    [entered](const auto &account) -> bool {
                                        return account->id == entered;
-                                   });
-            });
+                                   }) && (validate || validate(entered));
+            }, in);
 
     for (const auto &id : markedAccountsId) {
         auto user = std::find_if(state.accounts.begin(), state.accounts.end(), [id](const auto &account) -> bool {
