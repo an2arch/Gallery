@@ -24,9 +24,7 @@ struct Photo {
 
     template<class Archive>
     void serialize(Archive &archive) {
-        archive(CEREAL_NVP_("marked_accounts", marked_accounts),
-                CEREAL_NVP_("id", id),
-                CEREAL_NVP_("photo_path", photo_path));
+        archive(marked_accounts, id, photo_path);
     }
 };
 
