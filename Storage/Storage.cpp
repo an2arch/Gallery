@@ -146,7 +146,7 @@ State Storage::_reducer(Action action) {
             state.current_user = nullptr;
             break;
         case ActionTypes::ADD_NEW_USER:
-            state.accounts.push_back(std::make_shared<Account>(Account(*static_cast<Account *>(action.data))));
+            state.accounts.push_back(std::make_shared<Account>(*static_cast<Account *>(action.data)));
             break;
         case ActionTypes::EDIT_USER:
             for (const auto &item : state.accounts) {
@@ -239,4 +239,3 @@ Storage *Storage::getStorage() {
 
     return s_storage;
 }
-

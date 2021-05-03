@@ -1,4 +1,4 @@
-﻿#ifndef PROJECT_STORAGE_H
+#ifndef PROJECT_STORAGE_H
 #define PROJECT_STORAGE_H
 
 #include <iostream>
