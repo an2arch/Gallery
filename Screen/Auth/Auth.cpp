@@ -35,34 +35,73 @@ int Auth::start() {
     // выполняем отрисовку шапки
     renderMain();
 
-    Account *account{};
+    CMenu &menu = *Auth::createAuthMenu();
+    m_continue = true;
 
-    // запускаем цикл авторизации
-    // если пользователь ввёл неверные данные
-    // запрашиваем их у него ещё раз
-    for (account = auth(); !account; account = auth()) {
-        cout << "\n\nПользователя с таким логином и паролем не существует! Попробуйте ещё раз!\n\n" << endl;
-    }
-
-    // если авторизация прошла, то в user лежит указатель на успешно вошедшего пользователя
-    // делаем его текущим
-    // вызываем у хранилища метод диспач
-    // и передаём ему объект события
-    // первым параметром идёт тип события
-    // вторым - указатель на пользователя
-    // который мы конвертировали в неопределённый указатель
-    m_storage->dispatch(Action{
-            ActionTypes::SET_CURRENT_USER,
-            static_cast<void *>(account)
-    });
+    cout << menu;
+    cin >> menu;
+    menu();
 
     // теперь устанавливаем экран, который будет открыт следующим
-    m_storage->dispatch(Action{
-            ActionTypes::SET_INTENT_NEXT_SCREEN,
-            static_cast<MapScreens *>(m_storage->getState().screens_map)->at(IdScreens::MAIN)
-    });
+    if (m_continue) {
+        m_storage->dispatch(Action{
+                ActionTypes::SET_INTENT_NEXT_SCREEN,
+                static_cast<MapScreens *>(m_storage->getState().screens_map)->at(IdScreens::MAIN)
+        });
+    }
 
     return 0;
+}
+
+CMenu *Auth::createAuthMenu() {
+    // auto state = m_storage->getState();
+    auto authScreen = Auth::createScreen();
+    auto *menu = new CMenu{"Меню авторизации", ItemList{
+            ItemMenu{"Авторизизроваться", [authScreen]() -> int {
+                Account *account{};
+
+                // запускаем цикл авторизации
+                // если пользователь ввёл неверные данные
+                // запрашиваем их у него ещё раз
+                for (account = authScreen->auth(); !account; account = authScreen->auth()) {
+                    cout << "\n\nПользователя с таким логином и паролем не существует! Попробуйте ещё раз!\n\n" << endl;
+                }
+
+                // если авторизация прошла, то в user лежит указатель на успешно вошедшего пользователя
+                // делаем его текущим
+                // вызываем у хранилища метод диспач
+                // и передаём ему объект события
+                // первым параметром идёт тип события
+                // вторым - указатель на пользователя
+                // который мы конвертировали в неопределённый указатель
+                authScreen->m_storage->dispatch(Action{
+                        ActionTypes::SET_CURRENT_USER,
+                        static_cast<void *>(account)
+                });
+
+                return 0;
+            }},
+            ItemMenu{"Зарегистрироваться", [authScreen]() -> int {
+                Account *account = authScreen->registration();
+
+                authScreen->m_storage->dispatch(Action{
+                    ActionTypes::ADD_NEW_USER,
+                    static_cast<void *>(account)
+                });
+
+                authScreen->m_storage->dispatch(Action{
+                        ActionTypes::SET_CURRENT_USER,
+                        static_cast<void *>(account)
+                });
+
+                return 1;
+            }},
+            ItemMenu{"Выйти", [authScreen]() -> int {
+                authScreen->exit();
+                return 2;
+            }}
+    }};
+    return menu;
 }
 
 void Auth::renderMain() const {
@@ -100,4 +139,31 @@ Account *Auth::auth() {
     }
 
     return nullptr;
+}
+
+Account *Auth::registration() {
+    auto state = m_storage->getState();
+
+    shared_ptr<Account> account = std::make_shared<Account>(Account{});
+    account->level_access = Account::LevelAccess::User;
+    account->id = Account::current_user_id++;
+
+    account->name = tool::getEnteredString("Введите ваше имя -> ");
+
+    account->login = tool::getEnteredString("Введите логин -> ", [state](const string &login) -> bool {
+        return !login.empty() &&
+               std::all_of(state.accounts.begin(), state.accounts.end(), [&login](const auto account) -> bool {
+                   return account->login != login;
+               });
+    });
+
+    account->password = tool::getEnteredString("Введите пароль -> ", [state](const string &password) -> bool {
+        return !password.empty();
+    });
+
+    return account.get();
+}
+
+void Auth::exit() {
+    m_continue = false;
 }

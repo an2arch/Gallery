@@ -5,6 +5,7 @@
 #include <InterfaceScreen.h>
 #include <Account.h>
 #include <Utility.h>
+#include <CMenu.h>
 
 using std::cout;
 using std::cin;
@@ -29,13 +30,21 @@ public:
     // метод выполняет главную отрисовку экрана
     void renderMain() const override;
 
+    static CMenu *createAuthMenu();
+
     // метод авторизации
     // возвращает указатель на пользователя
     // который вошёл в систему
     Account *auth();
 
+    Account *registration();
+
+    void exit();
+
 protected:
     Storage *m_storage{}; // указатель на объект хранилища
+
+    bool m_continue{};
 
     // метод выполняет начальную инициализацию экрана
     void _init();
