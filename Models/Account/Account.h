@@ -36,15 +36,11 @@ struct Account {
 
     template<class Archive>
     void serialize(Archive &archive) {
-        archive(CEREAL_NVP_("name", name),
-                CEREAL_NVP_("id", id),
-                CEREAL_NVP_("login", login),
-                CEREAL_NVP_("password", password),
-                CEREAL_NVP_("level_access", level_access));
+        archive(name, id, login, password, level_access);
     }
 };
 
-std::ostream &operator<<(std::ostream &out, const Account &acc);
+std::ostream &operator<<(std::ostream &out, const Account::LevelAccess &level_access);
 
 
 #endif //PROJECT_ACCOUNT_H

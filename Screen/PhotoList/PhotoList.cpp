@@ -100,7 +100,8 @@ void PhotoList::addNewPhoto() {
 
     for (const auto &account : state.accounts) {
         if (account->level_access == Account::LevelAccess::User) {
-            cout << *account << endl;
+            // TODO:
+            // cout << *account << endl;
         }
     }
 
@@ -152,7 +153,8 @@ void PhotoList::editPhoto() {
 
     for (const auto &account : state.accounts) {
         if (account->level_access == Account::LevelAccess::User) {
-            cout << *account << endl;
+            // TODO:
+            // cout << *account << endl;
         }
     }
 
