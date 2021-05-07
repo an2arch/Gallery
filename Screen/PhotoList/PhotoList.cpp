@@ -103,7 +103,7 @@ void PhotoList::addNewPhoto() {
             [&state](int entered) -> bool {
                 return (*std::find_if(state.accounts.begin(), state.accounts.end(),
                                       [entered](const auto &account) -> bool {
-                                          return account->id == entered;
+                                          return account->id == static_cast<unsigned int>(entered);
                                       }))->level_access == Account::LevelAccess::User;
             });
 
@@ -129,7 +129,7 @@ void PhotoList::editPhoto() {
             [&state](int entered) -> bool {
                 return std::any_of(state.photos.begin(), state.photos.end(),
                                    [entered](const auto &photo) -> bool {
-                                       return entered == photo->id;
+                                       return static_cast<unsigned int>(entered) == photo->id;
                                    });
             });
 
@@ -149,7 +149,7 @@ void PhotoList::editPhoto() {
             [&state](int entered) -> bool {
                 return (*std::find_if(state.accounts.begin(), state.accounts.end(),
                                       [entered](const auto &account) -> bool {
-                                          return account->id == entered;
+                                          return account->id == static_cast<unsigned int>(entered);
                                       }))->level_access == Account::LevelAccess::User;
             });
 
@@ -175,7 +175,7 @@ void PhotoList::deletePhoto() {
             [&state](int id) -> bool {
                 return std::any_of(state.photos.begin(), state.photos.end(),
                                    [id](const auto &photo) -> bool {
-                                       return id == photo->id;
+                                       return static_cast<unsigned int>(id) == photo->id;
                                    });
             });
 
@@ -207,13 +207,13 @@ PhotoList::_getMarkedAccounts(const string &text, const tool::ValidateNum &valid
                 return std::any_of(state.accounts.begin(),
                                    state.accounts.end(),
                                    [entered](const auto &account) -> bool {
-                                       return account->id == entered;
-                                   }) && (!validate || validate && validate(entered));
+                                       return account->id == static_cast<unsigned int>(entered);
+                                   }) && (!validate || (validate && validate(entered)));
             }, in);
 
     for (const auto &id : markedAccountsId) {
         auto user = std::find_if(state.accounts.begin(), state.accounts.end(), [id](const auto &account) -> bool {
-            return account->id == id;
+            return account->id == static_cast<unsigned int>(id);
         });
         marked_accounts.push_back(*user);
     }

@@ -17,7 +17,7 @@ void CMenu::print(std::ostream &out) const {
     out << std::endl;
 }
 
-void CMenu::selectItem(int selected) {
+void CMenu::selectItem(size_t selected) {
     // делаем проверку на диапозон
     if (selected <= m_items.size() && selected > 0) {
         m_selected = selected - 1;
@@ -65,7 +65,7 @@ void CMenu::addItem(const ItemMenu &itemMenu) {
     m_items.push_back(itemMenu);
 }
 
-void CMenu::addItemByIndex(const ItemMenu &itemMenu, int index) {
+void CMenu::addItemByIndex(const ItemMenu &itemMenu, size_t index) {
     // проверяем, что указанный индекс входит в заданный диапазон
     if (index < m_items.size()) {
         m_items.insert(m_items.begin() + index, itemMenu);

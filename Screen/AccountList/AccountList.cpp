@@ -121,7 +121,7 @@ void AccountList::editAccount() {
             [state](int entered) -> bool {
                 return std::any_of(state.accounts.begin(), state.accounts.end(),
                                    [entered](const auto &acc) -> bool {
-                                       return entered == acc->id;
+                                       return static_cast<unsigned int>(entered) == acc->id;
                                    });
             });
     auto notEmpty = [](const string &entered) -> bool {
@@ -156,7 +156,7 @@ void AccountList::deleteAccount() {
             [state](int id) -> bool {
                 return std::any_of(state.accounts.begin(), state.accounts.end(),
                                    [id, state](const auto &acc) -> bool {
-                                       return id == acc->id && acc.get() != state.current_user;
+                                       return static_cast<unsigned int>(id) == acc->id && acc.get() != state.current_user;
                                    });
             });
 

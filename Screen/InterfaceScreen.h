@@ -11,6 +11,8 @@ public:
     virtual int start() = 0;
 
     virtual void renderMain() const = 0;
+
+    virtual ~InterfaceScreen() = default;
 };
 
 

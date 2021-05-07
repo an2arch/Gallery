@@ -37,7 +37,7 @@ public:
     void print(std::ostream &out = std::cout) const;
 
     // метод устанавливающий выбранный пункт меню
-    void selectItem(int selected);
+    void selectItem(size_t selected);
 
     // метод запуска пункта меню
     // возвращает код возврата вызванной функции
@@ -60,7 +60,7 @@ public:
     void addItem(const ItemMenu &itemMenu);
 
     // метод добавл¤ющий пункт меню на заданную позицию
-    void addItemByIndex(const ItemMenu &itemMenu, int index);
+    void addItemByIndex(const ItemMenu &itemMenu, size_t index);
 
 private:
     string m_title{};

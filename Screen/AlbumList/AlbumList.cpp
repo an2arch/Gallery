@@ -103,7 +103,7 @@ void AlbumList::editAlbum() {
             [state](int entered) -> bool {
                 return std::any_of(state.albums.begin(), state.albums.end(),
                                    [entered](const auto &album) -> bool {
-                                       return entered == album->id;
+                                       return static_cast<unsigned int>(entered) == album->id;
                                    });
             });
 
@@ -139,7 +139,7 @@ void AlbumList::deleteAlbum() {
             [state](int id) -> bool {
                 return std::any_of(state.albums.begin(), state.albums.end(),
                                    [id, state](const auto &album) -> bool {
-                                       return id == album->id;
+                                       return static_cast<unsigned int>(id) == album->id;
                                    });
             });
 
@@ -199,13 +199,13 @@ Photo::PhotosList AlbumList::_getPhotos(const string &text, const tool::Validate
                 return std::any_of(state.photos.begin(),
                                    state.photos.end(),
                                    [entered](const auto &photo) -> bool {
-                                       return photo->id == entered;
-                                   }) && (!validate || validate && validate(entered));
+                                       return photo->id == static_cast<unsigned int>(entered);
+                                   }) && (!validate || (validate && validate(entered)));
             }, in);
 
     for (const auto &id : photosId) {
         auto photo = std::find_if(state.photos.begin(), state.photos.end(), [id](const auto &photo) -> bool {
-            return photo->id == id;
+            return photo->id == static_cast<unsigned int>(id);
         });
         photos.push_back(*photo);
     }
