@@ -227,42 +227,7 @@ void AccountList::printAccountList(const AccountList::SortOrderFunction &sortOrd
         newAccountList = tool::filter(newAccountList, filterFunc);
     }
 
-    std::map<string, size_t> offsets{
-            {"id",           0},
-            {"name",         0},
-            {"login",        0},
-            {"password",     0},
-            {"level_access", 15}
-    };
-
-    for (const auto &account : newAccountList) {
-        offsets["id"] = std::max(offsets["id"], std::to_string(account->id).length());
-        offsets["name"] = std::max(offsets["name"], account->name.length());
-        offsets["login"] = std::max(offsets["login"], account->login.length());
-        offsets["password"] = std::max(offsets["password"], account->password.length());
-    }
-
-    /*
-    cout << std::setfill('\'');
-    cout << std::setw(offsets["id"] + 2) << "Id";
-    cout << std::setw(std::max(offsets["name"], size_t{3}) + 2) << "Имя";
-    cout << std::setw(std::max(offsets["login"], size_t{5}) + 2) << "Логин";
-    cout << std::setw(std::max(offsets["password"], size_t{6}) + 2) << "Пароль";
-    cout << std::setw(offsets["level_access"] + 2) << "Уровень доступа";
-     */
-    cout << "Id\tИмя\tЛогин\tПароль\tУровень доступа";
-    cout << "\n====================================================================\n\n";
-
-    for (const auto &account : newAccountList) {
-        cout << std::setw(offsets["id"] + 2) << account->id
-             << std::setw(offsets["name"] + 2) << account->name
-             << std::setw(offsets["login"] + 2) << account->login
-             << std::setw(offsets["password"] + 2) << account->password
-             << std::setw(offsets["level_access"] + 2) << account->level_access;
-        cout << endl;
-        // cout << *account << endl;
-    }
-    cout << "====================================================================\n\n";
+    tool::printTable(newAccountList);
 }
 
 void AccountList::printAllAccounts() const {

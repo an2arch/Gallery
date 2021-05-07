@@ -1,4 +1,4 @@
-﻿#include "AlbumList.h"
+#include "AlbumList.h"
 
 void AlbumList::_init() {
 }
@@ -177,13 +177,7 @@ void AlbumList::printAlbums(const AlbumList::SortOrderFunction &sortOrderFunc) c
         newAlbumsList = tool::sort(newAlbumsList, sortOrderFunc);
     }
 
-    cout << "Id\tНазвание\tВладелец\n";
-    cout << "==================================\n" << endl;
-
-    for (const auto &album : newAlbumsList) {
-        cout << *album << endl;
-    }
-    cout << "==================================\n" << endl;
+    tool::printTable(newAlbumsList);
 }
 
 void AlbumList::printAllAlbums() const {

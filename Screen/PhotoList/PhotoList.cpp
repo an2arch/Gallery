@@ -1,4 +1,4 @@
-﻿#include <PhotoList/PhotoList.h>
+#include <PhotoList/PhotoList.h>
 
 void PhotoList::_init() {
 }
@@ -72,13 +72,9 @@ void PhotoList::printAllPhotos() const {
     cout << "\nСписок всех фотографий\n"
          << "======================\n" << endl;
 
-    cout << "Id\tPath\n"
-         << "================\n" << endl;
     auto state = m_storage->getState();
-    for (const auto &photo : state.photos) {
-        cout << *photo << endl;
-    }
-    cout << "\n================\n" << endl;
+
+    tool::printTable(state.photos);
 }
 
 void PhotoList::addNewPhoto() {
@@ -95,15 +91,10 @@ void PhotoList::addNewPhoto() {
 
     cout << "Список пользователей\n"
          << "====================\n" << endl;
-    cout << "Id\tИмя\tЛогин\tПароль\tУровень доступа\n";
-    cout << "----------------------------------------------------------------\n\n";
 
-    for (const auto &account : state.accounts) {
-        if (account->level_access == Account::LevelAccess::User) {
-            // TODO:
-            // cout << *account << endl;
-        }
-    }
+    tool::printTable(tool::filter(state.accounts, [](const auto &account) -> bool {
+        return account->level_access == Account::LevelAccess::User;
+    }));
 
     cout << "===================\n" << endl;
 
@@ -144,19 +135,12 @@ void PhotoList::editPhoto() {
 
     editPhoto.photo_path = tool::getEnteredString("Введите новый путь к фотографии -> ");
 
-    // editPhoto.marked_accounts = _getMarkedAccounts("Введите Id отмеченных пользователей -> ");
-
     cout << "Список пользователей\n"
          << "====================\n" << endl;
-    cout << "Id\tИмя\tЛогин\tПароль\tУровень доступа\n";
-    cout << "----------------------------------------------------------------\n\n";
 
-    for (const auto &account : state.accounts) {
-        if (account->level_access == Account::LevelAccess::User) {
-            // TODO:
-            // cout << *account << endl;
-        }
-    }
+    tool::printTable(tool::filter(state.accounts, [](const auto &account) -> bool {
+        return account->level_access == Account::LevelAccess::User;
+    }));
 
     cout << "===================\n" << endl;
 

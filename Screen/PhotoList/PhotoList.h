@@ -1,4 +1,4 @@
-﻿#ifndef PROJECT_PHOTOLIST_H
+#ifndef PROJECT_PHOTOLIST_H
 #define PROJECT_PHOTOLIST_H
 
 #include <functional>
@@ -7,7 +7,7 @@
 #include <Storage.h>
 #include <InterfaceScreen.h>
 #include <CMenu.h>
-#include <AccountList/AccountList.h>
+#include <TablePrint/TablePrint.h>
 
 using std::function;
 using std::endl;

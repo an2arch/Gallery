@@ -1,11 +1,12 @@
-﻿#ifndef PROJECT_ALBUMLIST_H
+#ifndef PROJECT_ALBUMLIST_H
 #define PROJECT_ALBUMLIST_H
 
+#include <functional>
 #include <Album.h>
 #include <Storage.h>
 #include <InterfaceScreen.h>
 #include <CMenu.h>
-#include <functional>
+#include <TablePrint/TablePrint.h>
 
 using std::function;
 using std::cin;

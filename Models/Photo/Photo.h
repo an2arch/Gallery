@@ -1,4 +1,4 @@
-﻿#ifndef PROJECT_PHOTO_H
+#ifndef PROJECT_PHOTO_H
 #define PROJECT_PHOTO_H
 
 #include <vector>
@@ -28,6 +28,6 @@ struct Photo {
     }
 };
 
-std::ostream &operator<<(std::ostream &out, const Photo &photo);
+// std::ostream &operator<<(std::ostream &out, const Photo &photo);
 
 #endif //PROJECT_PHOTO_H
