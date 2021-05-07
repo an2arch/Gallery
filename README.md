@@ -18,8 +18,8 @@
 
 ### Requirements:
 
-* GCC (version 10.3.0) from MinGW
-* CLion
+* GCC (version 10.3.0) from [MinGW](http://winlibs.com/)
+* [CLion](https://www.jetbrains.com/ru-ru/clion/)
 * cmake (version >= 3.17)
 
 ### Build and running process:
