@@ -29,8 +29,7 @@ CEREAL_RAPIDJSON_NAMESPACE_BEGIN
 #ifdef __GNUC__
         CEREAL_RAPIDJSON_DIAG_PUSH
         CEREAL_RAPIDJSON_DIAG_OFF(effc++)
-        CEREAL_RAPIDJSON_DIAG_OFF(array -
-                                  bounds) // some gcc versions generate wrong warnings https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59124
+        CEREAL_RAPIDJSON_DIAG_OFF(array-bounds) // some gcc versions generate wrong warnings https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59124
 #endif
 
         inline void

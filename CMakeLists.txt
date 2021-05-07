@@ -31,5 +31,5 @@ add_subdirectory(App)
 
 add_executable(${TARGET} main.cpp)
 
-target_link_libraries(${TARGET} App) # Screen Storage Global Utility CMenu Models)
-target_compile_options(${TARGET} PUBLIC -Wall -pedantic)
+target_link_libraries(${TARGET} App)
+target_compile_options(${TARGET} PUBLIC -O2 -Wall -Wextra -pedantic)
