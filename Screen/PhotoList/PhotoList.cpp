@@ -208,7 +208,7 @@ PhotoList::_getMarkedAccounts(const string &text, const tool::ValidateNum &valid
                                    state.accounts.end(),
                                    [entered](const auto &account) -> bool {
                                        return account->id == entered;
-                                   }) && (validate || validate(entered));
+                                   }) && (!validate || validate && validate(entered));
             }, in);
 
     for (const auto &id : markedAccountsId) {
