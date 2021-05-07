@@ -8,6 +8,7 @@
 #include <functional>
 #include <algorithm>
 #include <sstream>
+#include <limits>
 
 using std::vector;
 using std::string;
