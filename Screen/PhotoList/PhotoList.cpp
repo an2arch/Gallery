@@ -1,4 +1,4 @@
-#include <PhotoList/PhotoList.h>
+﻿#include <PhotoList/PhotoList.h>
 
 void PhotoList::_init() {
 }
@@ -102,9 +102,9 @@ void PhotoList::addNewPhoto() {
             "Введите Id отмеченных пользователей -> ",
             [&state](int entered) -> bool {
                 return (*std::find_if(state.accounts.begin(), state.accounts.end(),
-                                     [entered](const auto &account) -> bool {
-                                         return account->id == entered;
-                                     }))->level_access == Account::LevelAccess::User;
+                                      [entered](const auto &account) -> bool {
+                                          return account->id == entered;
+                                      }))->level_access == Account::LevelAccess::User;
             });
 
     m_storage->dispatch(Action{

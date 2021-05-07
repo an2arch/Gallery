@@ -1,4 +1,4 @@
-#ifndef PROJECT_PHOTOLIST_H
+﻿#ifndef PROJECT_PHOTOLIST_H
 #define PROJECT_PHOTOLIST_H
 
 #include <functional>
@@ -39,14 +39,14 @@ public:
     void printAllPhotos() const;
 
 private:
+    PhotoList();
+
     Storage *m_storage{};
     bool m_is_running{};
 
     void _init();
 
     Account::AccountsList _getMarkedAccounts(const string &text, const tool::ValidateNum &validate = nullptr, std::istream &in = cin);
-
-    PhotoList();
 };
 
 

@@ -1,4 +1,4 @@
-#include "Storage.h"
+﻿#include "Storage.h"
 
 
 // инициализируем указатель на текущий объект
@@ -32,7 +32,6 @@ bool Storage::_loadState() {
 // в этом методе происходит сохранение State
 // в объекте базы
 bool Storage::_saveState() {
-    // TODO: Реализовать сохранение состояния приложения
     ofstream fout{m_path_to_save};
 
     if (!fout) {
@@ -61,8 +60,6 @@ void Storage::_init() {
 }
 
 Storage::~Storage() {
-    // TODO: сохраняем данные и очищаем что нужно
-
     // пытаемся сохраниться
     if (bool err = _saveState(); !err) {
         // не удалось сохранить данные
@@ -132,9 +129,6 @@ State Storage::dispatch(Action action) {
 State Storage::_reducer(Action action) {
     // создаём копию состояния
     State state(m_state);
-
-    // TODO: Здесь описываем логику событий нашего приложения в case-ах
-    //  делаем проверку по типу события
 
     switch (action.type) {
         case ActionTypes::CHANGE_APP_NAME:

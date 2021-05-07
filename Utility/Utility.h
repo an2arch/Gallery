@@ -6,8 +6,6 @@
 #include <iostream>
 #include <algorithm>
 #include <functional>
-#include <iomanip>
-#include <chrono>
 #include <algorithm>
 #include <sstream>
 
@@ -16,8 +14,6 @@ using std::string;
 using std::istringstream;
 using std::cout;
 using std::cin;
-
-using namespace std::chrono;
 
 namespace tool {
     /*

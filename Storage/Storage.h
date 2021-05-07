@@ -39,7 +39,7 @@ public:
 
     static Storage &createStorage(const string &path);
     // перегруженная версия метода возврата объекта
-    // принимает начальное состояние и путь к корневой папки с данными
+    // принимает начальное состояние и путь к корневой папке с данными
     static Storage &createStorage(State state, const string &path);
 
     // метод возвращает указатель на текущий объект

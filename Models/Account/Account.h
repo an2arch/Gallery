@@ -1,11 +1,10 @@
-#ifndef PROJECT_ACCOUNT_H
+﻿#ifndef PROJECT_ACCOUNT_H
 #define PROJECT_ACCOUNT_H
 
 #include <string>
 #include <vector>
 #include <ostream>
 #include <iomanip>
-#include <Utility.h>
 #include <memory>
 
 #include <cereal/types/string.hpp>

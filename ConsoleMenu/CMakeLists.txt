@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(SRC
         CMenu.cpp
         ItemMenu.cpp
-)
+        )
 
 add_library(CMenu ${SRC})

@@ -101,7 +101,7 @@ int App::start() {
             // завершаем работу программы, возвращая код ошибки
             // и пишем об этом в лог ошибок
             std::cerr
-                    << "Экран завершился с ошибкой! App.cpp - start()"
+                    << "Screen exit with error! App.cpp - start()"
                     << std::endl;
 
             return code_return;
