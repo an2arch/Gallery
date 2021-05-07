@@ -156,7 +156,8 @@ void AccountList::deleteAccount() {
             [state](int id) -> bool {
                 return std::any_of(state.accounts.begin(), state.accounts.end(),
                                    [id, state](const auto &acc) -> bool {
-                                       return static_cast<unsigned int>(id) == acc->id && acc.get() != state.current_user;
+                                       return static_cast<unsigned int>(id) == acc->id &&
+                                              acc.get() != state.current_user;
                                    });
             });
 

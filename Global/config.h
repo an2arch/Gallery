@@ -2,6 +2,7 @@
 #define PROJECT_CONFIG_H
 
 #include <string>
+
 using std::string;
 
 /*
@@ -15,9 +16,6 @@ const string PATH_TO_STATE{"./saved_state"};
 
 // набор идентификаторов экранов
 enum IdScreens : int {
-    // TODO: Сюда помещаем описание всех наших экранов
-    //  которые есть в вашем приложении
-
     AUTH,
     MAIN,
     PHOTOLIST,

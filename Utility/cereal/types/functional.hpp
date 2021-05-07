@@ -32,12 +32,11 @@
 
 #include <functional>
 
-namespace cereal
-{
-  //! Saving for std::less
-  template <class Archive, class T> inline
-  void serialize( Archive &, std::less<T> & )
-  { }
+namespace cereal {
+    //! Saving for std::less
+    template<class Archive, class T>
+    inline
+    void serialize(Archive &, std::less<T> &) {}
 } // namespace cereal
 
 #endif // CEREAL_TYPES_FUNCTIONAL_HPP_

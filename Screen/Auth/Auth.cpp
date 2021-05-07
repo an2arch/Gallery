@@ -9,7 +9,7 @@ bool validateEnter(const string &str) {
 
 // выполняем начальную инициализацию экрана
 void Auth::_init() {
-    // TODO: инициализируем начальное состояние экрана
+    // инициализируем начальное состояние экрана
 }
 
 Auth::Auth() {
@@ -27,8 +27,6 @@ Auth *Auth::createScreen() {
 
 // метод, главная точка входа в экран
 int Auth::start() {
-    // TODO: пишем логику экрана здесь
-
     // получаем указатель на объект хранилища
     m_storage = Storage::getStorage();
 
@@ -85,8 +83,8 @@ CMenu *Auth::createAuthMenu() {
                 Account *account = authScreen->registration();
 
                 authScreen->m_storage->dispatch(Action{
-                    ActionTypes::ADD_NEW_USER,
-                    static_cast<void *>(account)
+                        ActionTypes::ADD_NEW_USER,
+                        static_cast<void *>(account)
                 });
 
                 authScreen->m_storage->dispatch(Action{

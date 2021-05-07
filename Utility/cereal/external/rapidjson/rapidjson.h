@@ -164,13 +164,14 @@
 */
 #ifndef CEREAL_RAPIDJSON_NO_INT64DEFINE
 //!@cond CEREAL_RAPIDJSON_HIDDEN_FROM_DOXYGEN
-#if defined(_MSC_VER) && (_MSC_VER < 1800)	// Visual Studio 2013
+#if defined(_MSC_VER) && (_MSC_VER < 1800)    // Visual Studio 2013
 #include "msinttypes/stdint.h"
 #include "msinttypes/inttypes.h"
 #else
 // Other compilers should have this.
 #include <stdint.h>
 #include <inttypes.h>
+
 #endif
 //!@endcond
 #ifdef CEREAL_RAPIDJSON_DOXYGEN_RUNNING
@@ -349,7 +350,7 @@
     \c CEREAL_RAPIDJSON_SIMD to indicate the availability of the optimized code.
 */
 #if defined(CEREAL_RAPIDJSON_SSE2) || defined(CEREAL_RAPIDJSON_SSE42) \
-    || defined(CEREAL_RAPIDJSON_NEON) || defined(CEREAL_RAPIDJSON_DOXYGEN_RUNNING)
+ || defined(CEREAL_RAPIDJSON_NEON) || defined(CEREAL_RAPIDJSON_DOXYGEN_RUNNING)
 #define CEREAL_RAPIDJSON_SIMD
 #endif
 
@@ -381,13 +382,13 @@ CEREAL_RAPIDJSON_NAMESPACE_BEGIN
     instead of using \c size_t. Users may override the SizeType by defining
     \ref CEREAL_RAPIDJSON_NO_SIZETYPEDEFINE.
 */
-typedef unsigned SizeType;
+    typedef unsigned SizeType;
 CEREAL_RAPIDJSON_NAMESPACE_END
 #endif
 
 // always import std::size_t to rapidjson namespace
 CEREAL_RAPIDJSON_NAMESPACE_BEGIN
-using std::size_t;
+    using std::size_t;
 CEREAL_RAPIDJSON_NAMESPACE_END
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -411,7 +412,7 @@ CEREAL_RAPIDJSON_NAMESPACE_END
 
 // Prefer C++11 static_assert, if available
 #ifndef CEREAL_RAPIDJSON_STATIC_ASSERT
-#if __cplusplus >= 201103L || ( defined(_MSC_VER) && _MSC_VER >= 1800 )
+#if __cplusplus >= 201103L || (defined(_MSC_VER) && _MSC_VER >= 1800)
 #define CEREAL_RAPIDJSON_STATIC_ASSERT(x) \
    static_assert(x, CEREAL_RAPIDJSON_STRINGIFY(x))
 #endif // C++11
@@ -482,12 +483,12 @@ CEREAL_RAPIDJSON_NAMESPACE_END
 
 //!@cond CEREAL_RAPIDJSON_HIDDEN_FROM_DOXYGEN
 
-#define CEREAL_RAPIDJSON_MULTILINEMACRO_BEGIN do {  
+#define CEREAL_RAPIDJSON_MULTILINEMACRO_BEGIN do {
 #define CEREAL_RAPIDJSON_MULTILINEMACRO_END \
 } while((void)0, 0)
 
 // adopted from Boost
-#define CEREAL_RAPIDJSON_VERSION_CODE(x,y,z) \
+#define CEREAL_RAPIDJSON_VERSION_CODE(x, y, z) \
   (((x)*100000) + ((y)*100) + (z))
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -498,7 +499,7 @@ CEREAL_RAPIDJSON_NAMESPACE_END
     CEREAL_RAPIDJSON_VERSION_CODE(__GNUC__,__GNUC_MINOR__,__GNUC_PATCHLEVEL__)
 #endif
 
-#if defined(__clang__) || (defined(CEREAL_RAPIDJSON_GNUC) && CEREAL_RAPIDJSON_GNUC >= CEREAL_RAPIDJSON_VERSION_CODE(4,2,0))
+#if defined(__clang__) || (defined(CEREAL_RAPIDJSON_GNUC) && CEREAL_RAPIDJSON_GNUC >= CEREAL_RAPIDJSON_VERSION_CODE(4, 2, 0))
 
 #define CEREAL_RAPIDJSON_PRAGMA(x) _Pragma(CEREAL_RAPIDJSON_STRINGIFY(x))
 #define CEREAL_RAPIDJSON_DIAG_PRAGMA(x) CEREAL_RAPIDJSON_PRAGMA(GCC diagnostic x)
@@ -506,7 +507,7 @@ CEREAL_RAPIDJSON_NAMESPACE_END
     CEREAL_RAPIDJSON_DIAG_PRAGMA(ignored CEREAL_RAPIDJSON_STRINGIFY(CEREAL_RAPIDJSON_JOIN(-W,x)))
 
 // push/pop support in Clang and GCC>=4.6
-#if defined(__clang__) || (defined(CEREAL_RAPIDJSON_GNUC) && CEREAL_RAPIDJSON_GNUC >= CEREAL_RAPIDJSON_VERSION_CODE(4,6,0))
+#if defined(__clang__) || (defined(CEREAL_RAPIDJSON_GNUC) && CEREAL_RAPIDJSON_GNUC >= CEREAL_RAPIDJSON_VERSION_CODE(4, 6, 0))
 #define CEREAL_RAPIDJSON_DIAG_PUSH CEREAL_RAPIDJSON_DIAG_PRAGMA(push)
 #define CEREAL_RAPIDJSON_DIAG_POP  CEREAL_RAPIDJSON_DIAG_PRAGMA(pop)
 #else // GCC >= 4.2, < 4.6
@@ -543,7 +544,7 @@ CEREAL_RAPIDJSON_NAMESPACE_END
 #else
 #define CEREAL_RAPIDJSON_HAS_CXX11_RVALUE_REFS 0
 #endif
-#elif (defined(CEREAL_RAPIDJSON_GNUC) && (CEREAL_RAPIDJSON_GNUC >= CEREAL_RAPIDJSON_VERSION_CODE(4,3,0)) && defined(__GXX_EXPERIMENTAL_CXX0X__)) || \
+#elif (defined(CEREAL_RAPIDJSON_GNUC) && (CEREAL_RAPIDJSON_GNUC >= CEREAL_RAPIDJSON_VERSION_CODE(4, 3, 0)) && defined(__GXX_EXPERIMENTAL_CXX0X__)) || \
       (defined(_MSC_VER) && _MSC_VER >= 1600) || \
       (defined(__SUNPRO_CC) && __SUNPRO_CC >= 0x5140 && defined(__GXX_EXPERIMENTAL_CXX0X__))
 
@@ -556,7 +557,7 @@ CEREAL_RAPIDJSON_NAMESPACE_END
 #ifndef CEREAL_RAPIDJSON_HAS_CXX11_NOEXCEPT
 #if defined(__clang__)
 #define CEREAL_RAPIDJSON_HAS_CXX11_NOEXCEPT __has_feature(cxx_noexcept)
-#elif (defined(CEREAL_RAPIDJSON_GNUC) && (CEREAL_RAPIDJSON_GNUC >= CEREAL_RAPIDJSON_VERSION_CODE(4,6,0)) && defined(__GXX_EXPERIMENTAL_CXX0X__)) || \
+#elif (defined(CEREAL_RAPIDJSON_GNUC) && (CEREAL_RAPIDJSON_GNUC >= CEREAL_RAPIDJSON_VERSION_CODE(4, 6, 0)) && defined(__GXX_EXPERIMENTAL_CXX0X__)) || \
     (defined(_MSC_VER) && _MSC_VER >= 1900) || \
     (defined(__SUNPRO_CC) && __SUNPRO_CC >= 0x5140 && defined(__GXX_EXPERIMENTAL_CXX0X__))
 #define CEREAL_RAPIDJSON_HAS_CXX11_NOEXCEPT 1
@@ -582,7 +583,7 @@ CEREAL_RAPIDJSON_NAMESPACE_END
 #ifndef CEREAL_RAPIDJSON_HAS_CXX11_RANGE_FOR
 #if defined(__clang__)
 #define CEREAL_RAPIDJSON_HAS_CXX11_RANGE_FOR __has_feature(cxx_range_for)
-#elif (defined(CEREAL_RAPIDJSON_GNUC) && (CEREAL_RAPIDJSON_GNUC >= CEREAL_RAPIDJSON_VERSION_CODE(4,6,0)) && defined(__GXX_EXPERIMENTAL_CXX0X__)) || \
+#elif (defined(CEREAL_RAPIDJSON_GNUC) && (CEREAL_RAPIDJSON_GNUC >= CEREAL_RAPIDJSON_VERSION_CODE(4, 6, 0)) && defined(__GXX_EXPERIMENTAL_CXX0X__)) || \
       (defined(_MSC_VER) && _MSC_VER >= 1700) || \
       (defined(__SUNPRO_CC) && __SUNPRO_CC >= 0x5140 && defined(__GXX_EXPERIMENTAL_CXX0X__))
 #define CEREAL_RAPIDJSON_HAS_CXX11_RANGE_FOR 1
@@ -594,15 +595,15 @@ CEREAL_RAPIDJSON_NAMESPACE_END
 //!@endcond
 
 //! Assertion (in non-throwing contexts).
- /*! \ingroup CEREAL_RAPIDJSON_CONFIG
-    Some functions provide a \c noexcept guarantee, if the compiler supports it.
-    In these cases, the \ref CEREAL_RAPIDJSON_ASSERT macro cannot be overridden to
-    throw an exception.  This macro adds a separate customization point for
-    such cases.
+/*! \ingroup CEREAL_RAPIDJSON_CONFIG
+   Some functions provide a \c noexcept guarantee, if the compiler supports it.
+   In these cases, the \ref CEREAL_RAPIDJSON_ASSERT macro cannot be overridden to
+   throw an exception.  This macro adds a separate customization point for
+   such cases.
 
-    Defaults to C \c assert() (as \ref CEREAL_RAPIDJSON_ASSERT), if \c noexcept is
-    supported, and to \ref CEREAL_RAPIDJSON_ASSERT otherwise.
- */
+   Defaults to C \c assert() (as \ref CEREAL_RAPIDJSON_ASSERT), if \c noexcept is
+   supported, and to \ref CEREAL_RAPIDJSON_ASSERT otherwise.
+*/
 
 ///////////////////////////////////////////////////////////////////////////////
 // CEREAL_RAPIDJSON_NOEXCEPT_ASSERT
@@ -641,15 +642,15 @@ CEREAL_RAPIDJSON_NAMESPACE_END
 CEREAL_RAPIDJSON_NAMESPACE_BEGIN
 
 //! Type of JSON value
-enum Type {
-    kNullType = 0,      //!< null
-    kFalseType = 1,     //!< false
-    kTrueType = 2,      //!< true
-    kObjectType = 3,    //!< object
-    kArrayType = 4,     //!< array 
-    kStringType = 5,    //!< string
-    kNumberType = 6     //!< number
-};
+    enum Type {
+        kNullType = 0,      //!< null
+        kFalseType = 1,     //!< false
+        kTrueType = 2,      //!< true
+        kObjectType = 3,    //!< object
+        kArrayType = 4,     //!< array
+        kStringType = 5,    //!< string
+        kNumberType = 6     //!< number
+    };
 
 CEREAL_RAPIDJSON_NAMESPACE_END
 

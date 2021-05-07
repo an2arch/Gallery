@@ -44,8 +44,6 @@ void App::_init() {
 App::App()
         : m_storage(Storage::createStorage(
         State{
-                // TODO: настраиваем начальное состояние нашего приложения
-
                 // устанавливаем название программы
                 .app_name = "Gallery",
 

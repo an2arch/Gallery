@@ -38,6 +38,7 @@ public:
     Storage &operator=(const Storage &) = delete;
 
     static Storage &createStorage(const string &path);
+
     // перегруженная версия метода возврата объекта
     // принимает начальное состояние и путь к корневой папке с данными
     static Storage &createStorage(State state, const string &path);

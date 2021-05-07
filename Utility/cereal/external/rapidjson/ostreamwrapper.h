@@ -40,40 +40,61 @@ CEREAL_RAPIDJSON_NAMESPACE_BEGIN
 
     \tparam StreamType Class derived from \c std::basic_ostream.
 */
-   
-template <typename StreamType>
-class BasicOStreamWrapper {
-public:
-    typedef typename StreamType::char_type Ch;
-    BasicOStreamWrapper(StreamType& stream) : stream_(stream) {}
 
-    void Put(Ch c) {
-        stream_.put(c);
-    }
+    template<typename StreamType>
+    class BasicOStreamWrapper {
+    public:
+        typedef typename StreamType::char_type Ch;
 
-    void Flush() {
-        stream_.flush();
-    }
+        BasicOStreamWrapper(StreamType &stream) : stream_(stream) {}
 
-    // Not implemented
-    char Peek() const { CEREAL_RAPIDJSON_ASSERT(false); return 0; }
-    char Take() { CEREAL_RAPIDJSON_ASSERT(false); return 0; }
-    size_t Tell() const { CEREAL_RAPIDJSON_ASSERT(false); return 0; }
-    char* PutBegin() { CEREAL_RAPIDJSON_ASSERT(false); return 0; }
-    size_t PutEnd(char*) { CEREAL_RAPIDJSON_ASSERT(false); return 0; }
+        void Put(Ch c) {
+            stream_.put(c);
+        }
 
-private:
-    BasicOStreamWrapper(const BasicOStreamWrapper&);
-    BasicOStreamWrapper& operator=(const BasicOStreamWrapper&);
+        void Flush() {
+            stream_.flush();
+        }
 
-    StreamType& stream_;
-};
+        // Not implemented
+        char Peek() const {
+            CEREAL_RAPIDJSON_ASSERT(false);
+            return 0;
+        }
 
-typedef BasicOStreamWrapper<std::ostream> OStreamWrapper;
-typedef BasicOStreamWrapper<std::wostream> WOStreamWrapper;
+        char Take() {
+            CEREAL_RAPIDJSON_ASSERT(false);
+            return 0;
+        }
+
+        size_t Tell() const {
+            CEREAL_RAPIDJSON_ASSERT(false);
+            return 0;
+        }
+
+        char *PutBegin() {
+            CEREAL_RAPIDJSON_ASSERT(false);
+            return 0;
+        }
+
+        size_t PutEnd(char *) {
+            CEREAL_RAPIDJSON_ASSERT(false);
+            return 0;
+        }
+
+    private:
+        BasicOStreamWrapper(const BasicOStreamWrapper &);
+
+        BasicOStreamWrapper &operator=(const BasicOStreamWrapper &);
+
+        StreamType &stream_;
+    };
+
+    typedef BasicOStreamWrapper<std::ostream> OStreamWrapper;
+    typedef BasicOStreamWrapper<std::wostream> WOStreamWrapper;
 
 #ifdef __clang__
-CEREAL_RAPIDJSON_DIAG_POP
+    CEREAL_RAPIDJSON_DIAG_POP
 #endif
 
 CEREAL_RAPIDJSON_NAMESPACE_END

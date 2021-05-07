@@ -46,7 +46,8 @@ private:
 
     void _init();
 
-    Account::AccountsList _getMarkedAccounts(const string &text, const tool::ValidateNum &validate = nullptr, std::istream &in = cin);
+    Account::AccountsList
+    _getMarkedAccounts(const string &text, const tool::ValidateNum &validate = nullptr, std::istream &in = cin);
 };
 
 

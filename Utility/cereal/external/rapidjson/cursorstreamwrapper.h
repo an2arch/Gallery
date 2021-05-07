@@ -35,42 +35,43 @@ CEREAL_RAPIDJSON_NAMESPACE_BEGIN
 /*!
     \tparam InputStream     Any stream that implements Stream Concept
 */
-template <typename InputStream, typename Encoding = UTF8<> >
-class CursorStreamWrapper : public GenericStreamWrapper<InputStream, Encoding> {
-public:
-    typedef typename Encoding::Ch Ch;
+    template<typename InputStream, typename Encoding = UTF8<> >
+    class CursorStreamWrapper : public GenericStreamWrapper<InputStream, Encoding> {
+    public:
+        typedef typename Encoding::Ch Ch;
 
-    CursorStreamWrapper(InputStream& is):
-        GenericStreamWrapper<InputStream, Encoding>(is), line_(1), col_(0) {}
+        CursorStreamWrapper(InputStream &is) :
+                GenericStreamWrapper<InputStream, Encoding>(is), line_(1), col_(0) {}
 
-    // counting line and column number
-    Ch Take() {
-        Ch ch = this->is_.Take();
-        if(ch == '\n') {
-            line_ ++;
-            col_ = 0;
-        } else {
-            col_ ++;
+        // counting line and column number
+        Ch Take() {
+            Ch ch = this->is_.Take();
+            if (ch == '\n') {
+                line_++;
+                col_ = 0;
+            } else {
+                col_++;
+            }
+            return ch;
         }
-        return ch;
-    }
 
-    //! Get the error line number, if error exists.
-    size_t GetLine() const { return line_; }
-    //! Get the error column number, if error exists.
-    size_t GetColumn() const { return col_; }
+        //! Get the error line number, if error exists.
+        size_t GetLine() const { return line_; }
 
-private:
-    size_t line_;   //!< Current Line
-    size_t col_;    //!< Current Column
-};
+        //! Get the error column number, if error exists.
+        size_t GetColumn() const { return col_; }
+
+    private:
+        size_t line_;   //!< Current Line
+        size_t col_;    //!< Current Column
+    };
 
 #if defined(_MSC_VER) && _MSC_VER <= 1800
-CEREAL_RAPIDJSON_DIAG_POP
+    CEREAL_RAPIDJSON_DIAG_POP
 #endif
 
 #if defined(__GNUC__)
-CEREAL_RAPIDJSON_DIAG_POP
+    CEREAL_RAPIDJSON_DIAG_POP
 #endif
 
 CEREAL_RAPIDJSON_NAMESPACE_END

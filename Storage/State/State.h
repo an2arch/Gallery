@@ -10,7 +10,6 @@
 using std::string;
 
 struct State {
-    // TODO: Сюда добавляем поля для данных нашего приложения
     string app_name{}; // название приложения
     Account *current_user{}; // указатель на текущего пользователя
     Account::AccountsList accounts{}; // список указателей на пользователей
