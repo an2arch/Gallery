@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <sstream>
 #include <limits>
+#include <concepts>
 
 using std::vector;
 using std::string;
@@ -83,6 +84,7 @@ namespace tool {
     }
 
     template<typename T, typename Order>
+    requires std::relation<Order, T, T>
     vector<T> sort(const vector<T> &acc, Order order) {
         vector<T> sorted{acc};
         std::sort(sorted.begin(), sorted.end(), order);
@@ -90,6 +92,7 @@ namespace tool {
     }
 
     template<typename T, typename Predicate>
+    requires std::predicate<Predicate, T>
     vector<T> filter(const vector<T> &acc, Predicate pred) {
         vector<T> filtered{};
         for (const auto &element : acc) {
