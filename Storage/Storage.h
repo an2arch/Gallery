@@ -12,7 +12,7 @@
 #include <Utility.h>
 #include <memory>
 
-#include <cereal/archives/portable_binary.hpp>
+#include <cereal/archives/json.hpp>
 
 using std::string;
 using std::ofstream;

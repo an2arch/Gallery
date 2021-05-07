@@ -23,7 +23,14 @@ struct State {
 
     template<class Archive>
     void serialize(Archive &archive) {
-        archive(accounts, photos, albums);
+        archive(
+                CEREAL_NVP(accounts),
+                CEREAL_NVP(Account::current_user_id),
+                CEREAL_NVP(photos),
+                CEREAL_NVP(Photo::current_photo_id),
+                CEREAL_NVP(albums),
+                CEREAL_NVP(Album::current_album_id)
+        );
     }
 };
 

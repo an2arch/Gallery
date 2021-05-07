@@ -26,10 +26,12 @@ struct Album {
 
     template<class Archive>
     void serialize(Archive &archive) {
-        archive(CEREAL_NVP_("name", name),
-                CEREAL_NVP_("id", id),
-                CEREAL_NVP_("login", photos),
-                CEREAL_NVP_("password", owner));
+        archive(
+                CEREAL_NVP(name),
+                CEREAL_NVP(id),
+                CEREAL_NVP(photos),
+                CEREAL_NVP(owner)
+        );
     }
 };
 

@@ -1,4 +1,4 @@
-#ifndef PROJECT_PHOTO_H
+﻿#ifndef PROJECT_PHOTO_H
 #define PROJECT_PHOTO_H
 
 #include <vector>
@@ -24,7 +24,11 @@ struct Photo {
 
     template<class Archive>
     void serialize(Archive &archive) {
-        archive(marked_accounts, id, photo_path);
+        archive(
+                CEREAL_NVP(id),
+                CEREAL_NVP(marked_accounts),
+                CEREAL_NVP(photo_path)
+        );
     }
 };
 

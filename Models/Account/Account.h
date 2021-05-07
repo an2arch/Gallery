@@ -1,4 +1,4 @@
-﻿#ifndef PROJECT_ACCOUNT_H
+#ifndef PROJECT_ACCOUNT_H
 #define PROJECT_ACCOUNT_H
 
 #include <string>
@@ -36,7 +36,13 @@ struct Account {
 
     template<class Archive>
     void serialize(Archive &archive) {
-        archive(name, id, login, password, level_access);
+        archive(
+                CEREAL_NVP(name),
+                CEREAL_NVP(id),
+                CEREAL_NVP(login),
+                CEREAL_NVP(password),
+                CEREAL_NVP(level_access)
+        );
     }
 };
 

@@ -1,4 +1,4 @@
-﻿#include "Storage.h"
+#include "Storage.h"
 
 
 // инициализируем указатель на текущий объект
@@ -14,7 +14,7 @@ bool Storage::_loadState() {
     ifstream fin{m_path_to_save};
 
     if (fin) {
-        cereal::PortableBinaryInputArchive archive{fin};
+        cereal::JSONInputArchive archive{fin};
         archive(m_state);
     } else {
         m_state.accounts.push_back(std::make_shared<Account>(Account{
@@ -39,8 +39,9 @@ bool Storage::_saveState() {
         return false;
     }
 
-    cereal::PortableBinaryOutputArchive archive{fout};
-    archive(m_state);
+    cereal::JSONOutputArchive archive{fout};
+    // archive(m_state);
+    archive(CEREAL_NVP(m_state));
 
     return true;
 }
