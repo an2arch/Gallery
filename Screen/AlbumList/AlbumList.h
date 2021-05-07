@@ -44,12 +44,13 @@ public:
 private:
     AlbumList();
 
-    void _init();
-
-    Photo::PhotosList _getPhotos();
-
     Storage *m_storage{};
     bool m_is_running{};
+
+    void _init();
+
+    Photo::PhotosList
+    _getPhotos(const string &text, const tool::ValidateNum &validate = nullptr, std::istream &in = std::cin) const;
 };
 
 

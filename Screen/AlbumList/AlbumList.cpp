@@ -1,14 +1,10 @@
-#include "AlbumList.h"
+﻿#include "AlbumList.h"
 
 void AlbumList::_init() {
 }
 
 AlbumList::AlbumList() {
     _init();
-}
-
-Photo::PhotosList AlbumList::_getPhotos() {
-    return Photo::PhotosList();
 }
 
 AlbumList *AlbumList::createScreen() {
@@ -79,7 +75,11 @@ void AlbumList::addNewAlbum() {
     newAlbum.id = Album::current_album_id++;
     newAlbum.name = tool::getEnteredString("Введите название альбома -> ");
     newAlbum.owner = std::make_shared<Account>(*state.current_user);
-    newAlbum.photos = _getPhotos();
+
+    cout << endl;
+    tool::printTable(state.photos);
+
+    newAlbum.photos = _getPhotos("Введите id фотографий -> ");
 
     m_storage->dispatch(Action{
             ActionTypes::ADD_NEW_ALBUM,
@@ -109,9 +109,13 @@ void AlbumList::editAlbum() {
 
     editAlbum.name = tool::getEnteredString("Введите новое название альбома -> ");
 
-    editAlbum.photos = _getPhotos();
 
     editAlbum.owner = std::make_shared<Account>(*state.current_user);
+
+    cout << endl;
+    tool::printTable(state.photos);
+
+    editAlbum.photos = _getPhotos("Введите id фотографий -> ");
 
     m_storage->dispatch(Action{
             ActionTypes::EDIT_ALBUM,
@@ -184,4 +188,26 @@ void AlbumList::printAllAlbums() const {
     cout << "\nСписок альбомов\n"
          << "===========\n" << endl;
     printAlbums();
+}
+
+Photo::PhotosList AlbumList::_getPhotos(const string &text, const tool::ValidateNum &validate, std::istream &in) const {
+    auto state = m_storage->getState();
+    Photo::PhotosList photos{};
+    vector<int> photosId = tool::getEnteredInts(
+            text,
+            [&state, &validate](int entered) -> bool {
+                return std::any_of(state.photos.begin(),
+                                   state.photos.end(),
+                                   [entered](const auto &photo) -> bool {
+                                       return photo->id == entered;
+                                   }) && (!validate || validate && validate(entered));
+            }, in);
+
+    for (const auto &id : photosId) {
+        auto photo = std::find_if(state.photos.begin(), state.photos.end(), [id](const auto &photo) -> bool {
+            return photo->id == id;
+        });
+        photos.push_back(*photo);
+    }
+    return photos;
 }
