@@ -74,7 +74,7 @@ Storage::~Storage() {
 Storage::Storage(State state, string path)
         : m_state{std::move(state)}, m_path_to_save{std::move(path)} {
 
-    // запускаем метод начлаьной инициализации Storage
+    // запускаем метод начальной инициализации Storage
     _init();
 }
 
