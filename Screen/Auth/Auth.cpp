@@ -1,4 +1,4 @@
-﻿#include "Auth.h"
+#include "Auth.h"
 
 // функция валидации ввода пользователя
 // заметим, что эта функция не будет доступна из других
@@ -104,7 +104,7 @@ CMenu *Auth::createAuthMenu() {
 
 void Auth::renderMain() const {
     // стираем всё с экрана
-    system("cls");
+    tool::clearScreen();
 
     cout << "Добро пожаловать" << endl;
     cout << "===============================================\n\n";

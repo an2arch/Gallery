@@ -76,6 +76,8 @@ namespace tool {
 
     vector<int> getEnteredInts(const string &text, const ValidateNum &validate = nullptr, std::istream &in = cin);
 
+    void clearScreen();
+
     template<typename T>
     void swap(T &first, T &second) {
         T tmp = first;

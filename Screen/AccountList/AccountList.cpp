@@ -26,7 +26,7 @@ int AccountList::start() {
 }
 
 void AccountList::renderMain() const {
-    system("cls");
+    tool::clearScreen();
     cout << "Список всех пользователей\n";
     cout << "=========================\n" << endl;
     printAllAccounts();

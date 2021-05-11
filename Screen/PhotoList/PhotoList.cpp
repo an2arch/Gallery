@@ -33,7 +33,7 @@ int PhotoList::start() {
 }
 
 void PhotoList::renderMain() const {
-    system("cls");
+    tool::clearScreen();
     cout << "Список фотографий\n";
     cout << "=================\n" << endl;
 

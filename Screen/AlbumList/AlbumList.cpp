@@ -27,7 +27,7 @@ int AlbumList::start() {
 }
 
 void AlbumList::renderMain() const {
-    system("cls");
+    tool::clearScreen();
     cout << "Список всех альбомов\n";
     cout << "=========================\n" << endl;
     printAllAlbums();

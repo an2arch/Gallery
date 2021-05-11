@@ -46,7 +46,7 @@ int Main::start() {
 }
 
 void Main::renderMain() const {
-    system("cls");
+    tool::clearScreen();
 
     cout << "Добро пожаловать в главное меню, "
          << m_storage->getState().current_user->name << "!\n"
