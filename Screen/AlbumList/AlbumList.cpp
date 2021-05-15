@@ -1,4 +1,4 @@
-﻿#include "AlbumList.h"
+#include "AlbumList.h"
 
 void AlbumList::_init() {
 }
@@ -200,7 +200,7 @@ Photo::PhotosList AlbumList::_getPhotos(const string &text, const tool::Validate
                                    state.photos.end(),
                                    [entered](const auto &photo) -> bool {
                                        return photo->id == static_cast<unsigned int>(entered);
-                                   }) && (!validate || (validate && validate(entered)));
+                                   }) && (validate && validate(entered));
             }, in);
 
     for (const auto &id : photosId) {

@@ -1,4 +1,4 @@
-﻿#include <PhotoList/PhotoList.h>
+#include <PhotoList/PhotoList.h>
 
 void PhotoList::_init() {
 }
@@ -208,7 +208,7 @@ PhotoList::_getMarkedAccounts(const string &text, const tool::ValidateNum &valid
                                    state.accounts.end(),
                                    [entered](const auto &account) -> bool {
                                        return account->id == static_cast<unsigned int>(entered);
-                                   }) && (!validate || (validate && validate(entered)));
+                                   }) && (validate && validate(entered));
             }, in);
 
     for (const auto &id : markedAccountsId) {
