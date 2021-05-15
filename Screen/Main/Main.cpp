@@ -64,7 +64,7 @@ CMenu *Main::createMainMenu() {
                 main->openPhotoListScreen();
                 return 1;
             }},
-            ItemMenu{"Открыть списов альбомов", [main]() -> int {
+            ItemMenu{"Открыть список альбомов", [main]() -> int {
                 main->openAlbumsListScreen();
                 return 1;
             }},
@@ -104,7 +104,7 @@ void Main::openUsersListScreen() {
             static_cast<MapScreens *>(m_storage->getState().screens_map)->at(IdScreens::ACCOUNTLIST)
     });
 
-    // задаём триггер о том, что текущий экран следует поместить в стэк
+    // задаём триггер о том, что текущий экран следует поместить в стек
     m_storage->dispatch(Action{
             ActionTypes::PUSH_STACK_SCREEN
     });

@@ -39,7 +39,6 @@ bool Storage::_saveState() {
     }
 
     cereal::JSONOutputArchive archive{fout};
-    // archive(m_state);
     archive(CEREAL_NVP(m_state));
 
     return true;
@@ -109,7 +108,7 @@ Storage &Storage::createStorage(State state, const string &path) {
 // а затем вернёт новое состояние
 State Storage::dispatch(Action action) {
     // вызываем метод обработки событий
-    // присваеваем новый объект состояния
+    // присваиваем новый объект состояния
     m_state = _reducer(action);
 
     // возвращаем его

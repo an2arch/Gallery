@@ -1,4 +1,4 @@
-#include <PhotoList/PhotoList.h>
+﻿#include <PhotoList/PhotoList.h>
 
 void PhotoList::_init() {
 }
@@ -193,7 +193,7 @@ void PhotoList::deletePhoto() {
             &indexPhoto
     });
 
-    cout << "\nФотография успешно удалёна\n"
+    cout << "\nФотография успешно удалена\n"
          << "======================\n" << endl;
 }
 

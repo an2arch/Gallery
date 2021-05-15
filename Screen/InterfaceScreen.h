@@ -15,11 +15,8 @@ public:
     virtual ~InterfaceScreen() = default;
 };
 
-
-// создаём тип словарь экранов
 using MapScreens = std::map<IdScreens, InterfaceScreen *>;
 
-// создаём тип стек экранов
 using StackScreens = std::stack<InterfaceScreen *>;
 
 #endif //PROJECT_INTERFACESCREEN_H

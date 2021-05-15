@@ -32,4 +32,4 @@ add_subdirectory(App)
 add_executable(${TARGET} main.cpp)
 
 target_link_libraries(${TARGET} App)
-target_compile_options(${TARGET} PUBLIC -O2 -Wall -Wextra -pedantic)
+target_compile_options(${TARGET} PUBLIC -Wall -Wextra -pedantic)

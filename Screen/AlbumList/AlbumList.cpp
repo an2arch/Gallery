@@ -1,4 +1,4 @@
-#include "AlbumList.h"
+﻿#include "AlbumList.h"
 
 void AlbumList::_init() {
 }
