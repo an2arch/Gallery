@@ -72,7 +72,7 @@ private:
     // храним указатель на текущий объект
     static Storage *s_storage;
 
-    string m_path_to_save{};
+    std::filesystem::path m_path_to_save{};
 
     // метод начальной инициализации Storage
     void _init();
@@ -81,7 +81,7 @@ private:
     State _reducer(Action action);
 
     // метод загрузки state
-    bool _loadState();
+    void _loadState();
 
     // метод сохранения state
     bool _saveState();

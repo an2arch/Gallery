@@ -127,7 +127,7 @@ void PhotoList::editPhoto() {
     editPhoto.id = tool::getEnteredNum(
             "Введите id нужной фотографии -> ",
             [&state](int entered) -> bool {
-                return std::any_of(state.photos.begin(), state.photos.end(),
+                return tool::any_of(state.photos,
                                    [entered](const auto &photo) -> bool {
                                        return static_cast<unsigned int>(entered) == photo->id;
                                    });
@@ -173,7 +173,7 @@ void PhotoList::deletePhoto() {
     size_t photoIdToDelete = tool::getEnteredNum(
             "Введите id фотографии -> ",
             [&state](int id) -> bool {
-                return std::any_of(state.photos.begin(), state.photos.end(),
+                return tool::any_of(state.photos,
                                    [id](const auto &photo) -> bool {
                                        return static_cast<unsigned int>(id) == photo->id;
                                    });
@@ -204,11 +204,10 @@ PhotoList::_getMarkedAccounts(const string &text, const tool::ValidateNum &valid
     vector<int> markedAccountsId = tool::getEnteredInts(
             text,
             [&state, &validate](int entered) -> bool {
-                return std::any_of(state.accounts.begin(),
-                                   state.accounts.end(),
+                return tool::any_of(state.accounts,
                                    [entered](const auto &account) -> bool {
                                        return account->id == static_cast<unsigned int>(entered);
-                                   }) && (validate && validate(entered));
+                                   }) && (!validate || validate(entered));
             }, in);
 
     for (const auto &id : markedAccountsId) {

@@ -85,7 +85,7 @@ void AccountList::addNewAccount() {
     newAccount.name = tool::getEnteredString("Введите новое имя -> ");
 
     newAccount.login = tool::getEnteredString("Введите новый логин -> ", [state](const string &login) -> bool {
-        return std::all_of(state.accounts.cbegin(), state.accounts.cend(), [login](const auto &acc) -> bool {
+        return tool::all_of(state.accounts, [login](const auto &acc) -> bool {
             return login != acc->name;
         });
     });
@@ -119,10 +119,10 @@ void AccountList::editAccount() {
     account.id = tool::getEnteredNum(
             "Введите id нужного пользователя -> ",
             [state](int entered) -> bool {
-                return std::any_of(state.accounts.begin(), state.accounts.end(),
-                                   [entered](const auto &acc) -> bool {
-                                       return static_cast<unsigned int>(entered) == acc->id;
-                                   });
+                return tool::any_of(state.accounts,
+                                    [entered](const auto &acc) -> bool {
+                                        return static_cast<unsigned int>(entered) == acc->id;
+                                    });
             });
     auto notEmpty = [](const string &entered) -> bool {
         return !entered.empty();
@@ -154,11 +154,11 @@ void AccountList::deleteAccount() {
     size_t accountIdToDelete = tool::getEnteredNum(
             "Введите id аккаунта -> ",
             [state](int id) -> bool {
-                return std::any_of(state.accounts.begin(), state.accounts.end(),
-                                   [id, state](const auto &acc) -> bool {
-                                       return static_cast<unsigned int>(id) == acc->id &&
-                                              acc.get() != state.current_user;
-                                   });
+                return tool::any_of(state.accounts,
+                                    [id, state](const auto &acc) -> bool {
+                                        return static_cast<unsigned int>(id) == acc->id &&
+                                               acc.get() != state.current_user;
+                                    });
             });
 
     size_t indexAccount{};

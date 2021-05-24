@@ -68,7 +68,7 @@ void CMenu::addItem(const ItemMenu &itemMenu) {
 void CMenu::addItemByIndex(const ItemMenu &itemMenu, size_t index) {
     // проверяем, что указанный индекс входит в заданный диапазон
     if (index < m_items.size()) {
-        m_items.insert(m_items.begin() + index, itemMenu);
+        m_items.insert(m_items.begin() + static_cast<int>(index), itemMenu);
     }
 }
 

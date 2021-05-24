@@ -1,6 +1,5 @@
 ﻿#include "Storage.h"
 
-
 // инициализируем указатель на текущий объект
 // в данном случае он равен нулевому указателю
 Storage *Storage::s_storage{};
@@ -10,7 +9,7 @@ Storage *Storage::s_storage{};
 // база данных представляем из себя класс - синглтон
 // и имеет методы для выгрузки
 // и загрузки данных
-bool Storage::_loadState() {
+void Storage::_loadState() {
     ifstream fin{m_path_to_save};
 
     if (fin) {
@@ -25,8 +24,6 @@ bool Storage::_loadState() {
                 .level_access = Account::LevelAccess::Admin
         }));
     }
-    // если всё успешно - возвращаем true
-    return true;
 }
 
 // в этом методе происходит сохранение State
@@ -44,42 +41,35 @@ bool Storage::_saveState() {
     return true;
 }
 
-// метод инициализации хранилища
 void Storage::_init() {
-    // загружаем данные и проверяем на ошибку
-    if (bool err = _loadState(); !err) {
-        // не удалось загрузить данные
-        // отображаем сообщение об этом в логе ошибок
-        std::cerr
-                << "Не удалось загрузить начальные данные хранилища! Storage.cpp - _init()"
-                << std::endl;
-    }
+    _loadState();
 }
 
 Storage::~Storage() {
-    // пытаемся сохраниться
     if (bool err = _saveState(); !err) {
-        // не удалось сохранить данные
-        // отображаем сообщение об этом в логе ошибок
-        std::cerr
-                << "Не удалось сохранить данные хранилища! Storage.cpp - ~Storage()"
-                << std::endl;
+        std::cerr << "Не удалось сохранить данные хранилища! Storage.cpp - ~Storage()"
+                  << std::endl;
     }
 }
 
 // конструктор, принимающий объект state
 // с начальной инициализацией
 // через список инициализации настраиваем объекты
-Storage::Storage(State state, string path)
-        : m_state{std::move(state)}, m_path_to_save{std::move(path)} {
+Storage::Storage(State state, const string& path)
+        : m_state{std::move(state)}, m_path_to_save{path} {
 
+    if (!std::filesystem::is_directory(m_path_to_save.parent_path())) {
+        throw std::runtime_error{"Path " + m_path_to_save.string() + " is not valid!"};
+    }
     // запускаем метод начальной инициализации Storage
     _init();
 }
 
 // вызываем дилегирующий конструктор
 // с новым (пустым) объектом State
-Storage::Storage(const string &path) : Storage(State{}, path) {}
+Storage::Storage(const string &path) : Storage(State{}, path) {
+    _init();
+}
 
 Storage &Storage::createStorage(const string &path) {
     static Storage storage{path};
@@ -210,7 +200,7 @@ State Storage::_reducer(Action action) {
         default:
             // какая - то общая логика обработки
             // если не нашли ничего нужного
-            break;
+            throw std::runtime_error("Unknown ActionType - Storage::_reducer()");
     }
 
     return state;
@@ -226,7 +216,7 @@ Storage *Storage::getStorage() {
 
     // проверка ошибки
     if (s_storage == nullptr) {
-        std::cerr << "Вызов getStorage раньше чем createStorage! Получен нулевой указатель!" << std::endl;
+        throw std::runtime_error("Вызов getStorage раньше чем createStorage!");
     }
 
     return s_storage;

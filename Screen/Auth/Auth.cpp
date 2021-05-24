@@ -1,4 +1,4 @@
-#include "Auth.h"
+﻿#include "Auth.h"
 
 // функция валидации ввода пользователя
 // заметим, что эта функция не будет доступна из других
@@ -123,11 +123,13 @@ Account *Auth::registration() {
     account->level_access = Account::LevelAccess::User;
     account->id = Account::current_user_id++;
 
-    account->name = tool::getEnteredString("Введите ваше имя -> ");
+    account->name = tool::getEnteredString("Введите ваше имя -> ", [](const string &name) -> bool {
+        return !name.empty();
+    });
 
     account->login = tool::getEnteredString("Введите логин -> ", [state](const string &login) -> bool {
         return !login.empty() &&
-               std::all_of(state.accounts.begin(), state.accounts.end(), [&login](const auto account) -> bool {
+               tool::all_of(state.accounts, [&login](const auto account) -> bool {
                    return account->login != login;
                });
     });

@@ -1,4 +1,4 @@
-#ifndef GALLERY_ITEMMENU_H
+﻿#ifndef GALLERY_ITEMMENU_H
 #define GALLERY_ITEMMENU_H
 
 #include <iostream>
@@ -11,7 +11,7 @@ class ItemMenu {
 public:
     using Function = std::function<int()>;
 
-    ItemMenu() = delete;
+    ItemMenu() = default;
 
     ItemMenu(string item_name, Function task);
 

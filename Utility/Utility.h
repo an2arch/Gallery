@@ -1,4 +1,4 @@
-#ifndef GALLERY_UTILITY_H
+﻿#ifndef GALLERY_UTILITY_H
 #define GALLERY_UTILITY_H
 
 #include <string>
@@ -54,6 +54,28 @@ namespace tool {
             }
         }
         return filtered;
+    }
+
+    template<typename T, typename Predicate>
+    requires std::predicate<Predicate, T>
+    bool all_of(const vector<T> &vector, Predicate pred) {
+        for (const auto &item : vector) {
+            if (!pred(item)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    template<typename T, typename Predicate>
+    requires std::predicate<Predicate, T>
+    bool any_of(const vector<T> &vector, Predicate pred) {
+        for (const auto &item : vector) {
+            if (pred(item)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

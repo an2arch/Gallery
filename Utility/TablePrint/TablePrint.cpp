@@ -72,11 +72,11 @@ namespace tool {
 
         for (const auto &photo : list) {
             std::string allMarked{
-                    std::accumulate(photo->marked_accounts.rbegin(),
-                                    photo->marked_accounts.rend(),
+                    std::accumulate(photo->marked_accounts.begin(),
+                                    photo->marked_accounts.end(),
                                     std::string{},
                                     [](const string &acc, const auto &account) -> string {
-                                        return " " + account->name + acc;
+                                        return acc + " " + account->name;
                                     })};
             out << std::setw(offsets["id"]) << photo->id
                 << std::setw(offsets["photo_path"]) << photo->photo_path

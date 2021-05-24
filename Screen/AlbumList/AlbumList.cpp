@@ -101,10 +101,10 @@ void AlbumList::editAlbum() {
     editAlbum.id = tool::getEnteredNum(
             "Введите id нужного альбома -> ",
             [state](int entered) -> bool {
-                return std::any_of(state.albums.begin(), state.albums.end(),
-                                   [entered](const auto &album) -> bool {
-                                       return static_cast<unsigned int>(entered) == album->id;
-                                   });
+                return tool::any_of(state.albums,
+                                    [entered](const auto &album) -> bool {
+                                        return static_cast<unsigned int>(entered) == album->id;
+                                    });
             });
 
     editAlbum.name = tool::getEnteredString("Введите новое название альбома -> ");
@@ -137,10 +137,10 @@ void AlbumList::deleteAlbum() {
     size_t albumIdToDelete = tool::getEnteredNum(
             "Введите id альбома -> ",
             [state](int id) -> bool {
-                return std::any_of(state.albums.begin(), state.albums.end(),
-                                   [id, state](const auto &album) -> bool {
-                                       return static_cast<unsigned int>(id) == album->id;
-                                   });
+                return tool::any_of(state.albums,
+                                    [id, state](const auto &album) -> bool {
+                                        return static_cast<unsigned int>(id) == album->id;
+                                    });
             });
 
     size_t indexAlbum{};
@@ -196,11 +196,10 @@ Photo::PhotosList AlbumList::_getPhotos(const string &text, const tool::Validate
     vector<int> photosId = tool::getEnteredInts(
             text,
             [&state, &validate](int entered) -> bool {
-                return std::any_of(state.photos.begin(),
-                                   state.photos.end(),
-                                   [entered](const auto &photo) -> bool {
-                                       return photo->id == static_cast<unsigned int>(entered);
-                                   }) && (validate && validate(entered));
+                return tool::any_of(state.photos,
+                                    [entered](const auto &photo) -> bool {
+                                        return photo->id == static_cast<unsigned int>(entered);
+                                    }) && (!validate ||validate(entered));
             }, in);
 
     for (const auto &id : photosId) {
