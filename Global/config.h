@@ -1,5 +1,5 @@
-﻿#ifndef PROJECT_CONFIG_H
-#define PROJECT_CONFIG_H
+﻿#ifndef GALLERY_CONFIG_H
+#define GALLERY_CONFIG_H
 
 #include <string>
 
@@ -13,14 +13,13 @@ using std::string;
 
 const string PATH_TO_STATE{"./saved_state"};
 
-
 // набор идентификаторов экранов
 enum IdScreens : int {
     AUTH,
     MAIN,
-    PHOTOLIST,
-    ACCOUNTLIST,
-    ALBUMLIST
+    PHOTO_LIST,
+    ACCOUNT_LIST,
+    ALBUM_LIST
 };
 
-#endif //PROJECT_CONFIG_H
+#endif //GALLERY_CONFIG_H

@@ -1,5 +1,5 @@
-#ifndef PROJECT_ALBUMLIST_H
-#define PROJECT_ALBUMLIST_H
+#ifndef GALLERY_ALBUM_LIST_H
+#define GALLERY_ALBUM_LIST_H
 
 #include <functional>
 #include <Album.h>
@@ -54,4 +54,4 @@ private:
 };
 
 
-#endif //PROJECT_ALBUMLIST_H
+#endif //GALLERY_ALBUM_LIST_H

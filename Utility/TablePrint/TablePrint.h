@@ -1,5 +1,5 @@
-﻿#ifndef GALLERY_TABLEPRINT_H
-#define GALLERY_TABLEPRINT_H
+﻿#ifndef GALLERY__TABLEPRINT_H
+#define GALLERY__TABLEPRINT_H
 
 #include <numeric>
 #include <map>
@@ -17,4 +17,4 @@ namespace tool {
     void printTable(const Album::AlbumsList &list, std::ostream &out = std::cout);
 }
 
-#endif //GALLERY_TABLEPRINT_H
+#endif //GALLERY__TABLEPRINT_H

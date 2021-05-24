@@ -1,11 +1,13 @@
-﻿#ifndef PROJECT_ACCOUNT_H
-#define PROJECT_ACCOUNT_H
+﻿#ifndef GALLERY_ACCOUNT_H
+#define GALLERY_ACCOUNT_H
 
 #include <string>
 #include <vector>
 #include <ostream>
 #include <iomanip>
 #include <memory>
+
+#include <vector>
 
 #include <cereal/types/string.hpp>
 #include <cereal/types/memory.hpp>
@@ -48,4 +50,4 @@ struct Account {
 std::ostream &operator<<(std::ostream &out, const Account::LevelAccess &level_access);
 
 
-#endif //PROJECT_ACCOUNT_H
+#endif //GALLERY_ACCOUNT_H

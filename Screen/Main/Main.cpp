@@ -89,7 +89,7 @@ CMenu *Main::createMainMenu() {
 void Main::openPhotoListScreen() {
     m_storage->dispatch(Action{
             ActionTypes::SET_INTENT_NEXT_SCREEN,
-            static_cast<MapScreens *>(m_storage->getState().screens_map)->at(IdScreens::PHOTOLIST)
+            static_cast<MapScreens *>(m_storage->getState().screens_map)->at(IdScreens::PHOTO_LIST)
     });
 
     m_storage->dispatch(Action{
@@ -101,7 +101,7 @@ void Main::openUsersListScreen() {
     // задаём нужный экран для открытия
     m_storage->dispatch(Action{
             ActionTypes::SET_INTENT_NEXT_SCREEN,
-            static_cast<MapScreens *>(m_storage->getState().screens_map)->at(IdScreens::ACCOUNTLIST)
+            static_cast<MapScreens *>(m_storage->getState().screens_map)->at(IdScreens::ACCOUNT_LIST)
     });
 
     // задаём триггер о том, что текущий экран следует поместить в стек
@@ -114,7 +114,7 @@ void Main::openAlbumsListScreen() {
     // задаём нужный экран для открытия
     m_storage->dispatch(Action{
             ActionTypes::SET_INTENT_NEXT_SCREEN,
-            static_cast<MapScreens *>(m_storage->getState().screens_map)->at(IdScreens::ALBUMLIST)
+            static_cast<MapScreens *>(m_storage->getState().screens_map)->at(IdScreens::ALBUM_LIST)
     });
 
     // задаём триггер о том, что текущий экран следует поместить в стэк

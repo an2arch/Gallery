@@ -1,5 +1,5 @@
-﻿#ifndef PROJECT_ACTION_H
-#define PROJECT_ACTION_H
+﻿#ifndef GALLERY_ACTION_H
+#define GALLERY_ACTION_H
 
 #include <ActionTypes.h>
 
@@ -16,4 +16,4 @@ struct Action {
     void *data{};
 };
 
-#endif //PROJECT_ACTION_H
+#endif //GALLERY_ACTION_H

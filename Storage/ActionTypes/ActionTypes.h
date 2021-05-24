@@ -1,5 +1,5 @@
-﻿#ifndef PROJECT_ACTIONTYPES_H
-#define PROJECT_ACTIONTYPES_H
+﻿#ifndef GALLERY_ACTIONTYPES_H
+#define GALLERY_ACTIONTYPES_H
 
 enum class ActionTypes {
     //  Здесь описываем типы всех действий в нашем приложении
@@ -30,4 +30,4 @@ enum class ActionTypes {
     CLEAR_PUSH_STACK_SCREEN
 };
 
-#endif //PROJECT_ACTIONTYPES_H
+#endif //GALLERY_ACTIONTYPES_H

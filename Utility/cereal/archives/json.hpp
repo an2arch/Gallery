@@ -156,7 +156,7 @@ namespace cereal {
         /*! @param stream The stream to output to.
             @param options The JSON specific options to use.  See the Options struct
                            for the values of default parameters */
-        JSONOutputArchive(std::ostream &stream, Options const &options = Options::Default()) :
+        explicit JSONOutputArchive(std::ostream &stream, Options const &options = Options::Default()) :
                 OutputArchive<JSONOutputArchive>(this),
                 itsWriteStream(stream),
                 itsWriter(itsWriteStream),

@@ -1,5 +1,5 @@
-#ifndef PROJECT_CMENU_H
-#define PROJECT_CMENU_H
+#ifndef GALLERY_CMENU_H
+#define GALLERY_CMENU_H
 
 #include <string>
 #include <vector>
@@ -72,4 +72,4 @@ private:
 // принимает кол - во элемнтов в меню
 tool::ValidateNum getValidate(int count_items);
 
-#endif //PROJECT_CMENU_H
+#endif //GALLERY_CMENU_H

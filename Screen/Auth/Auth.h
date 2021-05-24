@@ -1,5 +1,5 @@
-﻿#ifndef PROJECT_AUTH_H
-#define PROJECT_AUTH_H
+﻿#ifndef GALLERY_AUTH_H
+#define GALLERY_AUTH_H
 
 #include <iostream>
 #include <InterfaceScreen.h>
@@ -54,4 +54,4 @@ protected:
 };
 
 
-#endif //PROJECT_AUTH_H
+#endif //GALLERY_AUTH_H

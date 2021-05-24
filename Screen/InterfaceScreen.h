@@ -1,5 +1,5 @@
-﻿#ifndef PROJECT_INTERFACESCREEN_H
-#define PROJECT_INTERFACESCREEN_H
+﻿#ifndef GALLERY_INTERFACESCREEN_H
+#define GALLERY_INTERFACESCREEN_H
 
 #include <Storage.h>
 #include <config.h>
@@ -19,4 +19,4 @@ using MapScreens = std::map<IdScreens, InterfaceScreen *>;
 
 using StackScreens = std::stack<InterfaceScreen *>;
 
-#endif //PROJECT_INTERFACESCREEN_H
+#endif //GALLERY_INTERFACESCREEN_H

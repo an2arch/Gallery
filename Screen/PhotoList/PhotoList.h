@@ -1,5 +1,5 @@
-﻿#ifndef PROJECT_PHOTOLIST_H
-#define PROJECT_PHOTOLIST_H
+﻿#ifndef GALLERY_PHOTO_LIST_H
+#define GALLERY_PHOTO_LIST_H
 
 #include <functional>
 #include <Photo.h>
@@ -51,4 +51,4 @@ private:
 };
 
 
-#endif //PROJECT_PHOTOLIST_H
+#endif //GALLERY_PHOTO_LIST_H

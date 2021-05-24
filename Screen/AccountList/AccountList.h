@@ -1,8 +1,7 @@
-﻿#ifndef PROJECT_ACCOUNTLIST_H
-#define PROJECT_ACCOUNTLIST_H
+﻿#ifndef GALLERY_ACCOUNT_LIST_H
+#define GALLERY_ACCOUNT_LIST_H
 
 #include <functional>
-#include <algorithm>
 #include <iostream>
 #include <Storage.h>
 #include <InterfaceScreen.h>
@@ -59,4 +58,4 @@ private:
     void _init();
 };
 
-#endif //PROJECT_ACCOUNTLIST_H
+#endif //GALLERY_ACCOUNT_LIST_H

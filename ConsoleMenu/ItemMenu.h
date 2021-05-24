@@ -1,5 +1,5 @@
-﻿#ifndef PROJECT_ITEMMENU_H
-#define PROJECT_ITEMMENU_H
+#ifndef GALLERY_ITEMMENU_H
+#define GALLERY_ITEMMENU_H
 
 #include <iostream>
 #include <string>
@@ -34,4 +34,4 @@ private:
     Function m_task{};
 };
 
-#endif //PROJECT_ITEMMENU_H
+#endif //GALLERY_ITEMMENU_H

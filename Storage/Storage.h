@@ -1,10 +1,11 @@
-#ifndef PROJECT_STORAGE_H
-#define PROJECT_STORAGE_H
+#ifndef GALLERY_STORAGE_H
+#define GALLERY_STORAGE_H
 
 #include <iostream>
 #include <string>
 #include <utility>
 #include <fstream>
+#include <filesystem>
 #include <State.h>
 #include <Action.h>
 #include <ActionTypes.h>
@@ -63,7 +64,7 @@ private:
     explicit Storage(const string &path);
 
     // закрываем главный конструктор
-    Storage(State state, string path);
+    Storage(State state, const string& path);
 
     // объект хранилища
     State m_state{};
@@ -86,4 +87,4 @@ private:
     bool _saveState();
 };
 
-#endif //PROJECT_STORAGE_H
+#endif //GALLERY_STORAGE_H

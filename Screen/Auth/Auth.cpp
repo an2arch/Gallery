@@ -1,4 +1,4 @@
-﻿#include "Auth.h"
+#include "Auth.h"
 
 // функция валидации ввода пользователя
 // заметим, что эта функция не будет доступна из других
@@ -25,12 +25,9 @@ Auth *Auth::createScreen() {
     return auth;
 }
 
-// метод, главная точка входа в экран
 int Auth::start() {
-    // получаем указатель на объект хранилища
     m_storage = Storage::getStorage();
 
-    // выполняем отрисовку шапки
     renderMain();
 
     CMenu &menu = *Auth::createAuthMenu();
@@ -40,7 +37,6 @@ int Auth::start() {
     cin >> menu;
     menu();
 
-    // теперь устанавливаем экран, который будет открыт следующим
     if (m_continue) {
         m_storage->dispatch(Action{
                 ActionTypes::SET_INTENT_NEXT_SCREEN,
@@ -52,26 +48,15 @@ int Auth::start() {
 }
 
 CMenu *Auth::createAuthMenu() {
-    // auto state = m_storage->getState();
     auto authScreen = Auth::createScreen();
     auto *menu = new CMenu{"Меню авторизации", ItemList{
-            ItemMenu{"Авторизизроваться", [authScreen]() -> int {
-                Account *account{};
+            ItemMenu{"Авторизация", [authScreen]() -> int {
+                Account *account;
 
-                // запускаем цикл авторизации
-                // если пользователь ввёл неверные данные
-                // запрашиваем их у него ещё раз
                 for (account = authScreen->auth(); !account; account = authScreen->auth()) {
                     cout << "\n\nПользователя с таким логином и паролем не существует! Попробуйте ещё раз!\n\n" << endl;
                 }
 
-                // если авторизация прошла, то в user лежит указатель на успешно вошедшего пользователя
-                // делаем его текущим
-                // вызываем у хранилища метод диспач
-                // и передаём ему объект события
-                // первым параметром идёт тип события
-                // вторым - указатель на пользователя
-                // который мы конвертировали в неопределённый указатель
                 authScreen->m_storage->dispatch(Action{
                         ActionTypes::SET_CURRENT_USER,
                         static_cast<void *>(account)
@@ -79,7 +64,7 @@ CMenu *Auth::createAuthMenu() {
 
                 return 0;
             }},
-            ItemMenu{"Зарегистрироваться", [authScreen]() -> int {
+            ItemMenu{"Регистрация", [authScreen]() -> int {
                 Account *account = authScreen->registration();
 
                 authScreen->m_storage->dispatch(Action{
@@ -99,38 +84,30 @@ CMenu *Auth::createAuthMenu() {
                 return 2;
             }}
     }};
+
     return menu;
 }
 
 void Auth::renderMain() const {
-    // стираем всё с экрана
     tool::clearScreen();
 
     cout << "Добро пожаловать" << endl;
     cout << "===============================================\n\n";
     cout << "Чтобы продолжить Вам необходимо авторизоваться\n"
             "по вашим личным данным - login/password,\n"
-            "если Вы не знаете, или не помните свои авторизационные\n"
-            "данные свяжитесь с администратором!\n";
+            "если Вы не знаете, или не помните свои данные\n"
+            "для авторизации свяжитесь с администратором!\n";
     cout << "-----------------------------------------------\n" << endl;
 }
 
-// здесь мы выполняем авторизациюю пользователя
-// и возвращаем указатель на авторизировавшигося пользователя
 Account *Auth::auth() {
-    // запрашиваем у пользователя логин
     string login = getEnteredString("Введите логин -> ", validateEnter);
 
-    // запрашиваем у пользователя пароль
-    // точно также, пароль не должен быть пустым
     string password = getEnteredString("Введите пароль -> ", validateEnter);
 
-    // ищем пользователя по полученному логину
     for (const auto &user : m_storage->getState().accounts) {
         if (user->login == login) {
-            // если нашли совпадение, проверяем пароль
             if (user->password == password) {
-                // всё хорошо? - отправляем указатель на пользователя
                 return user.get();
             }
         }

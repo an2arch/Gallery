@@ -1,5 +1,5 @@
-#ifndef PROJECT_MAIN_H
-#define PROJECT_MAIN_H
+#ifndef GALLERY_MAIN_H
+#define GALLERY_MAIN_H
 
 
 #include <InterfaceScreen.h>
@@ -61,4 +61,4 @@ protected:
 };
 
 
-#endif //PROJECT_MAIN_H
+#endif //GALLERY_MAIN_H

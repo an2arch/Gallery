@@ -1,9 +1,10 @@
-﻿#ifndef PROJECT_PHOTO_H
-#define PROJECT_PHOTO_H
+﻿#ifndef GALLERY_PHOTO_H
+#define GALLERY_PHOTO_H
 
-#include <vector>
 #include <memory>
 #include <Account.h>
+
+#include <vector>
 
 #include <cereal/types/string.hpp>
 #include <cereal/types/memory.hpp>
@@ -34,4 +35,4 @@ struct Photo {
 
 // std::ostream &operator<<(std::ostream &out, const Photo &photo);
 
-#endif //PROJECT_PHOTO_H
+#endif //GALLERY_PHOTO_H

@@ -1,11 +1,12 @@
-﻿#ifndef PROJECT_ALBUM_H
-#define PROJECT_ALBUM_H
+﻿#ifndef GALLERY_ALBUM_H
+#define GALLERY_ALBUM_H
 
 #include <Photo.h>
 #include <string>
-#include <vector>
 #include <ostream>
 #include <memory>
+
+#include <vector>
 
 #include <cereal/types/string.hpp>
 #include <cereal/types/memory.hpp>
@@ -38,4 +39,4 @@ struct Album {
 std::ostream &operator<<(std::ostream &out, const Album &album);
 
 
-#endif //PROJECT_ALBUM_H
+#endif //GALLERY_ALBUM_H

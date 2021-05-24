@@ -1,5 +1,5 @@
-﻿#ifndef PROJECT_STATE_H
-#define PROJECT_STATE_H
+﻿#ifndef GALLERY_STATE_H
+#define GALLERY_STATE_H
 
 #include <string>
 #include <Account.h>
@@ -34,4 +34,4 @@ struct State {
 };
 
 
-#endif //PROJECT_STATE_H
+#endif //GALLERY_STATE_H
